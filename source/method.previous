@@ -1,0 +1,31 @@
+\subsection{Non-scalable method}\label{sec:method}
+
+	The most critical prerequisite to efficiently 
+utilizing very large scale parallel systems is that 
+the underlying numerical method is fundamentally scalable. 
+ In other words, scalability is only limited by the quality 
+of implementation of the application or the scalability of the 
+computing platform. The difference between numerical method 
+and application scalability is illustrated by considering 
+the parallelization approach used by POP and an older version of 
+CAM.  In the older version of CAM, which decomposed across latitude, 
+a computational grid with 128 grid points in longitude and 64 grid 
+points in latitude could only be parallelized across 64 processors.  
+Additional parallelism within CAM was only possible through either a 
+major change in the computational infrastructure, or an alternative 
+numerical method.  The scalability of CAM was limited from a structural 
+perspective.  Significant changes to the computational structure and 
+numerical method of CAM has since occurred, which has improved its 
+structural scalability.  However, CAM still has structural limitations 
+on its scalability in the dynamics section of the code.  Alternatively, 
+POP has a much more flexible approach to scalability.  The only limit to 
+parallelism within POP is that imposed on it by the compute platform.   
+For example it is possible to place as few as several grid points per 
+processor, though with current compute platform characteristics this would 
+not be an efficient configuration.  However the flexibility of POP 
+is an important feature and enables it to adapt to computational 
+platforms with different balances between computational and communication 
+costs.  The flexibility of POP has allowed it to successfully adapt to both 
+the Cray XT and IBM Blue Gene family of supercomputers.  While structural 
+scalability is necessary, it is not sufficient prerequisite for efficient
+ execution for very large scale parallelism.

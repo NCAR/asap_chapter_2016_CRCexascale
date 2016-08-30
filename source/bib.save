@@ -1,0 +1,33 @@
+
+%  author = {Baker, A.~H. and Hammerling, D.~M. and Levy, M.~N and Xu, H. and Dennis, J.~M. and Eaton, B.~E. and Edwards, J. and Hannay, C. and Mickelson, S.~A. and Neale, R.~B. and Nychka, D. and  Shollenberger, J. and Tribbia, J. and Vertenstein, M. and  Williamson, D.},
+@Article{Baker2015,
+  author = {Baker, A.~H.},
+  title =        { A new ensemble-based consistency test for the Community Earth System Model},
+  journal =      {Geoscientific Model Development},
+  volume = {8},
+  pages = {2829--2840},
+  doi = {10.5194/gmd-8-2829-2015},
+  year = {2015}}
+
+%@Article{baker2016,
+%  author = {Baker, A.~H. and Y. Hu and D.~M. Hammerling and Y. Tseng, and H. Xu and X. Huang and F.~O. Bryan  and G. Yangt,
+%  title = {Evaluating statistical consistency in the ocean model component of the Community Earth System Model (pyCECT v2.0)},
+%%  journal =      {Geoscientific Model Development},
+%  volume = {9},
+%  pages = {2391--2406},
+%  doi = {10.5194/gmd-9-2391-2016},
+%  year =         {2016}
+%}
+
+
+@article(dennis:2012,
+ author = {J. M. Dennis and J. Edwards and K.J. Evans and O. Guba and P.H. Lauritzen and A. A. Mirin and A. St-Cyr and M.A. Taylor and P. H. Worley},
+ title = {CAM-SE: A scalable spectral element dynamical core for the COmmunity Atmosphere Model},
+ journal = {Int. J. High Perform. Comput. Appl.},
+ year = {2012},
+ volume = {26},
+ number = {1},
+ pages = {74--89},
+ month = {Jan},
+ doi = {10.1177/1094342011428142}}
+

@@ -1,0 +1,156 @@
+\section{Algorithmic detail [{\color{red} 2 pages, Dennis}]}\label{sec:algorithm}
+
+  We focus our optimization efforts of two specific sections of the CESM code base. The 
+ Community Atmosphere Model (CAM) which typically consumes greater then 50\% of the total cost of a typical 
+ CESM simulation.  The CAM model is constructed of a large number of different code modules that are typically 
+ categorized into a dynamics and a physics modules.  The dynamic core solves a set of partial differential equations
+ which describe the fluid flow of the atmosphere, while the physics calculates all other properties.  For example the physics 
+ modules would calculate the impact of solar radiation on aerosol particles and their chemical reactions with other 
+ atmospheric chemical species.  In this section, we describe work performed to optimize the  spectral element (SE) based
+  dynamical core and the implict chemistry solver.  The dynamical core, which can consume 30-88\% of the total cost of the Community Atmosphere Model (CAM), has  a key impact on the overall scalabilty of CAM, and CESM.  For the dynamical core we focus on 
+both increasing it's single threaded performance as well as increasing the amount of threads it can utilize.  
+The implicit chemistry solver  uses a ??? numerical method to solve a system of chemical equations at each point 
+in the atmosphere model.  Depending on the exact scientific configuration of CESM, the cost of the implicit chemistry solver can 
+vary from insignificant, to approximately 12\% of the total time.  While less important overall then the dynamical core, we include the 
+implicit chemistry solver to illustrate the type of improvements that are possible for physic based modules.  
+
+\input homme-alg.tex
+
+\subsection{Implicit chemistry solver}\label{sec:chem-algor}
+
+    The implicit chemistry solver within CAM uses a ??? method to solve an the system of chemical questions.  It is based on the Mozart \cite{mozart} chemistry pre-processor which takes as input a high-level chemical specification and generates Fortran source code.  An independent set of equations is solved for each point in the atmosphere model.  The chemistry pre-processor was initially designed in the 90's to generate vector code, and was later updated to generate scalar code.  For the scalar code, the solution for a single grid point is calculated at a time while for the vector code, the solution for multiple grid points are calculated at once. 
+
+  While the vector version of the implicit solver has the potential to accelerate the calculation though the use of instruction level parallelism there are several challenges that may impact the resulting speedup.  For example, if there is a large difference in the number of iterations required to converge between different grid points, then the vector code will perform more calculations then the scalar version, because all points within the vector must converge. Additionally, there is the potential that the larger working set size for the calculation, approximately {\it veclen} where {\it veclen} is the length of the vector will have a negative impact on cache utilization.  
+  
+    The pseudo code for the implicit chemistry solver is illustrated in Figure \ref{fig:chef-code}.  Note the presence of an outer loop on line ?? over a block of one or more grid points, and an inner loop on line ??.  While there are a total of four different routines is present in the iteration loop, each require a similar source code transformations.  In section \ref{sec:chem-results} we use the lu\_slv subroutine as an example and describe each specific source code transformation. 
+
+\begin{figure}
+\begin{center}
+\begin{verbatim}
+
+ofl,ofu = set_block()
+do while  ofu!=chnkpnts
+
+  ! linear component of matrix
+  lin_jac = linmat()
+
+  do iter=1,itermax
+
+      ! non-linear component 
+      sys_jac = nlnmat(lin_jac)
+
+      ! factor the system matrix 
+      sys_jac = lu_fac(sys_jac)   
+
+      ! form f(y)
+      forcing = imp_prod_loss()
+
+      ! solve for the mixing ration at t(n+1)
+      forcing = lu_slv(sys_jac,forcing)  
+     
+      !check for convergence
+      if(converged(forcing)) then 
+        break
+      endif
+
+   enddo
+  ofl,ofu = set_block(ofl,ofu)
+
+enddo
+
+\end{verbatim}
+\end{center}
+\caption{Pseudo code for the implicit chemistry solver. \label{fig:chem-code}}
+\end{figure}
+
+   An example of the generated scalar code is provided in in Figure \ref{fig:s00}.  Note that a code snippet from the main solver routine which calls the {\em lu\_slv} is provided at the top of Figure \ref{fig:s00} along with subroutine {\em lu\_slv} at the bottom of Figure \ref{fig:s00}.  Interestingly, while most LU solver codes use indirect addressing, the chemical pre-processor has totally unrolled the entire LU solve in this case turning the indirect address into a literal constant.  While this eliminates the cost of the extra memory access for the indirect address, it also limits the amount of vectorization that is possible.  Figure \ref{fig:s00} also illustrates another performance problem related to the non stride-1 access pattern to {\em lu} and {\em b} variables in the {\em lu\_slv} and {\em lu\_fac} interface.  
+
+\begin{figure}
+\begin{verbatim}
+
+ real(r8) :: lu(cknkpnts,nzcnt)
+ real(r8) :: b(chnkpnts,clscnt4)
+ ...
+ do k=1,chnkpnts
+   call lu_fac01(lu(k,:))
+   ...
+   call lu_slv01(lu(k,:),b(k,:))
+   ...
+   
+subroutine lu_slv01( lu, b )
+
+ real(r8), intent(in) :: lu(:)
+ real(r8), intent(inout) :: b(:)
+
+ b(17) = b(17) - lu(17) * b(16)
+ b(19) = b(19) - lu(20) * b(18)
+ ....
+\end{verbatim}
+\caption{LU solve for original scalar version of the code (s00)}
+\label{fig:s00}
+\end{figure}
+
+     A vector implementation of the implicit solver code is provided in Figure \ref{fig:chem-v01}.  Note that while the {\em lu} and {\em b} data structures remain unchanged, the {\em k-loop} over all the individual solves has been pushed into the {\em lu\_slv} subroutine.  This fundamental transformation allows the compiler to generate vector code.  
+
+\begin{figure}
+\begin{verbatim}
+
+  real(r8) :: lu(cknkpnts,nzcnt)
+  real(r8) :: b(chnkpnts,clscnt4)
+
+  call lu_fac01(ofl,ofu,lu,b,chnkpnts)
+  call lu_slv01(ofl,ofu,lu,b,chnkpnts)
+
+subroutine lu_slv01( ofl, ofu, lu, b, chnkpnts )
+
+  integer, intent(in) :: ofl,ofu
+  real(r8), intent(in) :: lu(chnkpnts,nzcnt)
+  real(r8), intent(inout) :: b(chnkpnts,clscnt4)
+
+  do k=ofl,ofu
+    b(k,17) = b(k,17) - lu(k,17) * b(k,16)
+    b(k,19) = b(k,19) - lu(k,20) * b(k,18)
+    ....
+  enddo
+
+\end{verbatim}
+\caption{LU solve for modified vector version of the code (v01,v02).}
+\label{fig:chem-v01}
+\end{figure}
+
+
+
+%\begin{figure}
+%\begin{verbatim}
+%
+%  use dim_mod, ONLY: veclen
+%  real(r8) :: lu(cknkpnts,nzcnt)
+%  real(r8) :: b(chnkpnts,clscnt4)
+%  real(r8) :: lu_blk(veclen,nzcnt)
+%  real(r8) :: b_blk(veclen,clscnt4)
+%
+%  lu_blk  = lu(ofl:ofl+veclen,1:nzcnt)
+%  b_blk   = lu(ofl:ofl+veclen,1:clscnt4)
+%
+% call lu_fac01(aveclen,lu_blk,b_blk)
+%  call lu_slv01(aveclen,lu_blk,b_blk)
+%  ...
+%
+%subroutine lu_slv01( veclen, aveclen, lu, b)
+%
+%  integer, intent(in) :: ofl,ofu
+%  real(r8), intent(in) :: lu(veclen,nzcnt)
+%  real(r8), intent(inout) :: b(veclen,clscnt4)
+%
+%  do k=1,aveclen
+%    b(k,17) = b(k,17) - lu(k,17) * b(k,16)
+%    b(k,19) = b(k,19) - lu(k,20) * b(k,18)
+%    ....
+%  enddo
+%
+%\end{verbatim}
+%\caption{LU solve for final vector version of the code (v03)}
+%\label{fig:chem-v03}
+%\end{figure}
+
+

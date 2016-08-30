@@ -1,0 +1,66 @@
+cp waccmlike6knl.pdf ../exascale-chapter/source/figures/homme-knl-waccm.pdf
+cp waccmlike4b_ys.pdf ../exascale-chapter/source/figures/homme-ys-ne4-waccm.pdf 
+cp waccmlike8b_ys.pdf ../exascale-chapter/source/figures/homme-ys-ne30-waccm.pdf
+cp camlike4.pdf ../exascale-chapter/source/figures/homme-ys-ne4-cam.pdf
+
+
+!VECTOR version of algorithm 
+
+   
+ofl,ofu = set_block()
+do while  ofu!=chnkpnts
+
+  ! linear component of matrix
+  lin_jac = linmat()
+
+  do iter=1,itermax
+
+      ! non-linear component 
+      sys_jac = nlnmat(lin_jac)
+
+      ! factor the system matrix 
+      sys_jac = lu_fac(sys_jac)   
+
+      ! form f(y)
+      forcing = imp_prod_loss()
+
+      ! solve for the mixing ration at t(n+1)
+      forcing = lu_slv(sys_jac,forcing)  
+     
+      !check for convergence
+      if(converged(forcing)) then 
+        break
+      endif
+
+   enddo
+  ofl,ofu = set_block(ofl,ofu)
+
+enddo
+
+!SCALAR version of algorithm 
+
+do k=1,chnkpnts
+
+     ! linear component of matrix
+  lin_jac = linmat()
+
+  do iter=1,itermax
+
+      ! non-linear component
+      sys_jac = nlnmat(lin_jac)
+
+      ! factor the system matrix
+      sys_jac = lu_fac(sys_jac)
+
+      ! form f(y)
+      forcing = imp_prod_loss()
+
+      ! solve for the mixing ration at t(n+1)
+      forcing = lu_slv(sys_jac,forcing)
+    
+      !check for convergence
+      if(converged(forcing)) then
+        break
+      endif
+
+enddo

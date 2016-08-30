@@ -1,0 +1,103 @@
+\relax 
+\immediate\closeout\minitoc
+\let \MiniTOC =N
+\@writefile{toc}{\contentsline {title}{Preparing CESM for Exascale computing}{1}}
+\@writefile{toc}{\authcount {1}}
+\@writefile{toc}{\contentsline {author}{John M. Dennis, Chris Kerr, Brian Dobbins, Richard Mills, Sheri Mickelson, Youngsung Kim, Raghu Kumar, Kevin Paul, and Allison Baker}{1}}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Scientific Methodology [{\color  {red} 2-3 pages, Dennis, Baker}] }{1}}
+\newlabel{sec:method}{{1}{1}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Algorithmic detail [{\color  {red} 2 pages, Dennis}]}{1}}
+\newlabel{sec:algorithm}{{2}{1}}
+\citation{simmons:1981}
+\citation{taylor:1997}
+\citation{lin:2004}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Spectral element dynamical core}{2}}
+\newlabel{sec:homme-alg}{{2.1}{2}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.1}General code Design}{2}}
+\citation{henderson:2015}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.2}Single-core Optimizations}{3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.3}Parallelization Strategy}{3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces The computational phases within HOMME.}}{5}}
+\newlabel{fig:homme-alg}{{1}{5}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.4}Data and Loop Structures}{6}}
+\citation{mozart}
+\citation{milroy2016}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Implicit chemistry solver}{7}}
+\newlabel{sec:chem-algor}{{2.2}{7}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Pseudo code for the implicit chemistry solver. }}{8}}
+\newlabel{fig:chem-code}{{2}{8}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces LU solve for original scalar version of the code (s00)}}{8}}
+\newlabel{fig:s00}{{3}{8}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces LU solve for original vector version of the code (v00)}}{9}}
+\newlabel{fig:v00}{{4}{9}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces LU solve for modified vector version of the code (v01,v02).}}{9}}
+\newlabel{fig:v00}{{5}{9}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces LU solve for final vector version of the code (v03)}}{10}}
+\newlabel{fig:v02}{{6}{10}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Programming Approach [{\color  {red}1 page, Dennis}]}{10}}
+\newlabel{sec:algorithm}{{3}{10}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Software Practices}{10}}
+\newlabel{sec:algorithm}{{4}{10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}General practices [{\color  {red} 0.5 pages, Dennis}]}{10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}CESM Ensemble Verification [1.5 pages, Baker]}{10}}
+\newlabel{sec:pycect}{{4.2}{10}}
+\citation{baker2015}
+\citation{baker2015}
+\citation{baker2016}
+\citation{baker2015}
+\citation{baker2015}
+\citation{baker2016}
+\citation{milroy2016}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}KGen: Fortran Kernel Generator [2 pages, Kim] }{12}}
+\newlabel{sec:kgen}{{4.3}{12}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces KGEN workflow. {\color  {red} Color not allowed in book, excessive space below image.}}}{13}}
+\newlabel{fig:clmmem}{{7}{13}}
+\citation{waccm}
+\citation{asd}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Benchmarking Results}{14}}
+\newlabel{sec:algorithm}{{5}{14}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Description of computational platforms [1 page, Kumar]}{14}}
+\newlabel{sec:platform}{{5.1}{14}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.1}HOMME Performance Results}{14}}
+\newlabel{sec:homme-results}{{5.1.1}{14}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Computational platforms.}}{15}}
+\newlabel{tbl:platforms}{{1}{15}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Strong scaling for HOMME in perfTest configuration (ne=4, plev=26, and qsize=25) on 1-24 nodes of Yellowstone. }}{17}}
+\newlabel{fig:homme-ys-ne4}{{8}{17}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Strong scaling for HOMME in perfTestWACCM configuration (ne=4, plev=70, qsize=135) on 1-48 nodes of yellowstone.}}{18}}
+\newlabel{fig:homme-ys-ne4}{{9}{18}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Chemical pre-processor [{\color  {red}3 pages, Dennis and Mickelson}]}{18}}
+\newlabel{sec:chempreproc}{{5.2}{18}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Strong scaling for HOMME in perfTestWACCM configuration (NE=30, PLEV=70, qsize=135) on 57-2700 nodes of yellowstone.{\color  {red} Need extra data points for larger core counts.}}}{19}}
+\newlabel{fig:homme-ys-ne30}{{10}{19}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Execution time for HOMME in perfTestWACCm configuration on a single node of Knights Landing.{\color  {red} Redo with updated version of HOMME. Color is not allowed in book. Replace line graphs with bar graphs.}}}{20}}
+\newlabel{fig:homme-knl}{{11}{20}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Time in miliseconds for chemistry implicit solver kernel. {\color  {red} Need v03 and v04 results. }}}{21}}
+\newlabel{tbl:chem-timing}{{2}{21}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces A plot of the fraction vector instructions on Haswell for several different versions of the implicit chemistry solver. }}{22}}
+\newlabel{fig:chem-vec-dp}{{12}{22}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces A plot of the total L3 cache miss rates on Haswell for several different versions of the implicit chemistry solver. }}{23}}
+\newlabel{fig:chem-l3-tcm}{{13}{23}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Other CAM modules [1 page, Kumar]}{23}}
+\newlabel{sec:other}{{5.3}{23}}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Weak scaling of several different versions of the implicit chemistry solver on Sandybridge {\color  {red} FIXME: v03 data is missing. Color not allowed in book.}}}{24}}
+\newlabel{fig:chem-weak-snb}{{14}{24}}
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces Weak scaling of several different versions of the implicit chemistry solver on Haswell. {\color  {red} FIXME: v03 data is missing. Color not allowed in book.}}}{25}}
+\newlabel{fig:chem-weak-haswell}{{15}{25}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Accelerating data analytics [2 pages, Paul]}{25}}
+\newlabel{sec:postproc}{{6}{25}}
+\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces Weak scaling of several different versions of the implicit chemistry solver on Knights Landing. {\color  {red} FIXME: v03 data is missing. Color not allowed in book.}}}{26}}
+\newlabel{fig:chem-weak-knl}{{16}{26}}
+\bibstyle{plain}
+\bibdata{exascale}
+\bibcite{baker2015}{{1}{}{{}}{{}}}
+\bibcite{baker2016}{{2}{}{{}}{{}}}
+\bibcite{henderson:2015}{{3}{}{{}}{{}}}
+\bibcite{lin:2004}{{4}{}{{}}{{}}}
+\bibcite{milroy2016}{{5}{}{{}}{{}}}
+\bibcite{simmons:1981}{{6}{}{{}}{{}}}
+\bibcite{taylor:1997}{{7}{}{{}}{{}}}
+\immediate\closeout\minitoc
+\providecommand\NAT@force@numbers{}\NAT@force@numbers
+\@writefile{toc}{\contentsline {section}{References}{28}}
+\@mtwritefile{\contentsline {mtchap}{References}{28}}

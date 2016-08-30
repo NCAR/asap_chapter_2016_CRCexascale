@@ -1,0 +1,111 @@
+\subsection{CESM Ensemble Verification [1.5 pages, Baker]}\label{sec:pycect}
+
+%problem
+The Community Earth System Model (CESM), like most climate simulation
+codes, is large and complex.  Further, the CESM code is continually
+evolving to accommodate recent science developments, to port to new
+HPC platforms requested by the climate community, and to prepare for
+future (e.g., exascale) machine architectures, for example. Given its
+ongoing state of development, quality assurance via software
+verification is particularly critical for CESM to both detect and
+reduce errors, thereby ensuring user confidence in the simulation code
+and its output. Verifying the correctness of a change or update to the
+CESM hardware/software stack (e.g., a new compiler flag, a difference
+machine, a code modification) is trivial when the simulation results
+after the update are bit-for-bit (BFB) identical with the original
+results.  At issue is when the new results are no longer BFB with the
+original results.  The chaotic nature of climate model simulations ensures that this
+occurrence is commonplace in the CESM development cycle, as tiny code
+modifications or a compiler change can easily result in non-BFB solutions
+(e.g., see \cite{milroy2016}).
+
+%solution (general) + benefit
+When the CESM simulation results have changed due to modification(s)
+to the hardware or software stack, determining whether the difference
+is significant (i.e., ``climate-changing'') is key.  In particular, we
+consider a modification to be admissible if it is statistically
+indistinguishable from the original results.  Until recently, making
+such a determination was a computationally expensive and subjective
+task that required climate expertise (e.g., running and comparing
+multi-century simulations).  However, the CESM Ensemble Consistency
+Test (ECT) tool introduced \cite{baker2015} had formalized and
+simplified an important aspect of CESM quality assurance and is now
+regularly used by the CESM software engineers when porting to new
+CESM-supported machines and releasing code updates, for
+example. Further, because CESM-ECT is objective in nature and
+accessible to model developers and users, the tool has proven its
+utility in detecting errors and providing rapid feedback to software
+developers, thus boosting model confidence.  In particular, the
+capability to determine consistency between simulation results that
+are not BFB provides the much-needed flexibility, for example, to
+pursue more aggressive code optimizations and utilize heterogeneous
+execution environments, both of which are critical in the path to
+exascale.
+
+
+%solution (details: module variants, example)
+As its name implies, the CESM-ECT tool uses an ensemble-based approach
+to determine climate consistency (i.e., statistical
+indistinguishability).  In particular, an ensemble of ``accepted''
+simulations that represent the same earth system model allows us to
+gauge the natural variability of the model’s climate by providing a
+qualitative measurement of variability with which to compare future
+simulations. The CESM-ECT issues a pass or fail for new non-BFB CESM
+output (e.g., from a new machine) by comparing it to the variability
+represented by the accepted ensemble and determining whether it is
+statistically distinguishable.  The CESM-ECT is a suite of tools
+tailored for individual CESM component, and, at present, ECT modules
+have been developed and released for the Community Atmosphere Model
+(CAM) component (CAM-ECT) \cite{baker2015} and ocean component
+(CESM-POP) (POP-ECT) \cite{baker2016}. Note that ECT modules can in
+some situations detect errors from other components (e.g., the example
+in \cite{baker2015} where CAM-ECT detects an error in the sea ice
+component). 
+
+%specific approach details for CAM and POP
+While all CESM-ECT modules rely on ensembles, the underlying testing
+algorithms may be surprisingly different due characteristics of the
+respective models.  For example,CAM-ECT characterizes the ensemble's
+distribution by performing principal component (PC) analysis on the
+global area-weighted means of 120 CAM variables from an ensemble of
+151 one-year climate simulations (that differ only in an initial
+round-off level perturbation to the atmosphere temperature), and, from
+that, creates a distribution of accepted PC scores.  CAM-ECT then
+compares three one-year runs with a modification (e.g., run on a new
+platform) with the accepted ensemble distribution.  If more than a
+threshold number of PCs are outside of the distribution, then the new
+run is deemed to be inconsistant, or statistically distinguishable
+from the original (see \cite{baker2015} for further details).  Because
+CAM and POP have differing characteristics in term of dynamics,
+spatial variability, and timescales, the CAM-ECT approach is not
+suitable for POP-ECT.  In contrast, POP-ECT evaluates ensemble means
+and deviations for five independent diagnostic variables in a spatial
+manner, resulting in a characterization of ensemble distribution at
+each grid point (see \cite{baker2016} for further details).
+Developing modules for the other components is work in
+progress.
+
+%summary (coarse grain) + segue into KGEN section
+While CESM-ECT has greatly contributed to quality assurance for CESM,
+at present its scope is limited to coarse-grain verification.  In
+other words, while CESM-ECT can readily indicate that a problem exists
+by issuing a ``fail'', an easy means of identifying the root cause of
+the failure is not provided.  For example, for a failing test, CAM-ECT
+reports the PCs that differ from the ensemble distribution by more
+than a specified threshold amount. Because each PC is a linear
+combination of all 120 CAM variables, tracing the failure to a
+specific variable is non-trivial (e.g. see Section 6 in
+\cite{milroy2016}) and identifying the error in a complex code with
+more than one million lines can be daunting.  At least two additional
+capabilities are needed to more easily trace a CESM-ECT failure to its
+root cause.  First, a utility is needed to identify potential
+problematic CESM kernels based on information from the CESM-ECT
+failure.  Second, once the kernel(s) have been identified, a utility
+is needed to extract kernels from CESM (along with its relevant data)
+to render the debugging task reasonable.  While we have not begun work
+on the first tool, a tool that fulfills the second capability is
+described in the following section.  Finally, we note that our latest
+efforts have been focused on the development of an ultrafast version
+of CESM-ECT, which only requires nine model steps (equivalent to 4.5
+hours in model time) and which has shown promising preliminary
+results.

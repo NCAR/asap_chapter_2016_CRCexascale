@@ -1,0 +1,23 @@
+\subsection{Description of computational platforms [1 page, Kumar]}\label{sec:platform}
+
+Intel: Haswell Configuration:
+
+Hardware: Dual Socket Intel® Xeon® processor E5
+Two 2.3 GHz, 16 Cores/Socket, 72 Threads/Node. Each core has its own L1 and L2 caches, with 64 KB (32 KB instruction cache, 32 KB data) and 256 KB, respectively; there is also a 40-MB shared L3 cache per socket.
+
+Software Stack: impi/5.1.3.210, cray-mpich/7.4.0, intel/17.0.0.042, cray-netcdf/4.3.3.1
+
+Compiler Flags: -O3 -AVX2 -fp-model fast
+
+Intel: Xeon Phi Configuration:
+
+Hardware: Intel® Xeon Phi™ processor 7250 
+68 Cores/Node, 1.4GHz, 272 Threads/Node, MCDRAM flat memory mode. Each core has its own L1 and shared per tile L2 cache, with 64 KB (32 KB instruction cache, 32 KB data) and 512 KB respectively.
+
+Software Stack: impi/5.1.3.210, numactl/2.0.11, intel/17.0.0.042, cray-netcdf/4.3.2
+
+Compiler Flags: -O3 -xMIC - AVX512 -fp-model fast
+
+\input platforms.tex
+
+

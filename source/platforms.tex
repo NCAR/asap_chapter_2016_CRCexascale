@@ -1,0 +1,32 @@
+\begin{table}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+\hline
+Property                   & Yellowstone & Laramie    & Cori Phase I & Cori Phase 2     & HPCFL           \\ \hline
+\# of nodes            &     4,356   &      72    &    1,630     &       9,304       &  1             \\ \hline
+processor type             & Intel Xeon  & Intel Xeon & Intel Xeon   & Intel Xeon Phi   & Intel Xeon Phi  \\
+			   & E5-2670,    & E5-2695-V4,& E5-2698-V3,  &  7250            & 7250            \\
+                           & Sandybridge & Broadwell  & Haswell      & Knights Landing  & Knights Landing \\
+                           & (SNB)       & (BDW)      & (HSW)        & (KNL)            & (KNL)           \\ \hline
+sockets per node           & 2           &  2         &  2           &  1               & 1               \\ \hline
+cores per socket           &  8          &   18       &  16          &    68            & 68             \\ \hline
+cores per node             & 16          &   36       &  32          &    68            & 68             \\ \hline
+total \# of cores          & 72,576      & 1,296      & 52,160       &  632,672         & 68             \\ \hline
+base frequency (GHz)       & 2.6         & 2.1        & 2.3          &  1.4             & 1.4             \\ \hline
+L1 D+I cache               & 32 + 32 KB  & 32 + 32 KB & 32 + 32 KB   &  32 + 32 KB      & 32 + 32 KB     \\
+                           & per core    & per core   & per core     & per core         & per core    \\ \hline
+L2 cache                   & 256 KB      & 256 KB     & 256 KB       &  1024 KB         & 1024 KB \\
+                           & per core    & per core   & per core     & shared by 2 cores & shared by 2 cores \\ \hline
+L3 cache                   & 20 MB       & 45 MB      & 40 MB        &  none            & none           \\
+                           & per socket  & per socket & per socket   &                  &                \\ \hline
+DRAM per node              & 32 GB       & unknown    & 128 GB       &  96 GB           & 96 GB          \\ \hline
+MCDRAM                     & none        & none       & none         &  16 GB           & 16 GB       \\
+                           &             &            &              &  flat            & flat        \\ \hline
+RAM type                   & DDR3-1600   & unknown    & DDR-2133     & DDR4-2133        & DDR4-2133       \\ \hline
+Vector Length (bits)       & 256         & 256        & 256          & 512              & 512              \\ \hline
+fp vector units            & ?1?         & ?1?        & ?1?          & ?2?              & ?2?             \\ \hline 
+\hline
+\end{tabular}
+\caption{Computational platforms\label{tbl:platforms}.}
+\end{center}
+\end{table}

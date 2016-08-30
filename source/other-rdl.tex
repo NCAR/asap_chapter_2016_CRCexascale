@@ -1,0 +1,29 @@
+\subsection{Other issues}\label{sec:toolchain}
+
+	Although much of the discussion so far has focused on the model performance, modern scientific computing often involves a complex tool chain consisting of several applications only of which the the model itself. For example, the model may be embedded within a larger data assimilation system that ingests real time observations and produces forecast products, or may rely on third party tools for component coupling, grid generation, input data set preparation or domain partitioning. In most cases, the outputs data sets have elaborate workflows that often rely highly customized post-processing, analysis and visualization software.
+
+% RDL I forget how Latex does a power exponent below...
+
+Thus, when planning significant increases in resolution, the scaling characteristics and the parallelism of the entire tool chain should be considered. For example, in a simple 3-D finite difference model, the computational costs scale as $N^4$, where N is the factor by which resolution is increased in each spatial dimension and in time, however the data volume, if the output frequency in simulated time is not increased grows only as $N^3$. Thus scaling arguments indicate that the fraction of time spent doing I/O should become steadily smaller as resolution is increased. 
+
+This argument in fact ignores two important factors. First, the above argument presumes that I/O intensive operations are parallelized throughout the science workflow as efficiently as the model computations. If this is not true, then the fraction time spent doing I/O, either during the model run or afterward may actually increase. For example, the wall-clock time spent in a serial step (perhaps post processing) in the workflow will increase as $N^3$, while the time spent in a model with a 2-D domain decomposition will scale as $N^2$. In this case, the science workflow becomes increasingly dominated by the serial part in direct proportion to resolution increase N.
+
+Secondly, it is important to keep in mind that there are coefficients in front of these scaling properties related to the performance of the underlying hardware. For example, performance improvements in CPU's have outpaced disk for many years: disk have become a steadily increasing bottleneck in the science workflow. The current HPC industry solution for matching disk performance with parallel computational performance  has been to create parallel I/O subsystems and filesystems. Modern petabyte filesystems include thousands of rotating disk spindles, and access channels to these disk are aggregated to achieve high I/O bandwidth. Thus, as with CPU's the path to performance for I/O intensive problems is through parallelism.
+
+%
+% RDL - John, Describe below how the river runoff was rewritten.
+% Is this scheme described in a reference?
+% 
+
+To illustrate how a significant increases in the resolution can stress both the science tool chain, we provide a specific example of a 
+problem encountered in the pre-processing step which involved 
+during the generation for a input file for an ultra-high resolution 
+CCSM run which coupled a $0.25^\circ$ or $0.5^\circ$ CAM and CLM2 to 
+$0.1^\circ$ POP and CICE.  We discovered that the existing serial 
+algorithm for generating a river runoff mapping from the $0.5^\circ$ 
+land model to the ocean would have taken a single processor 60 days 
+on a system with 128 Gbytes of memory.  The calculation was significantly 
+larger than the a low resolution equivalent which only takes 3 hours 
+and 2 Gbytes of memory.  A rewritting of the serial algorithm reduced 
+the time to generate the high resolution river runoff mapping file to 
+30 minutes on a system with 5 Gbytes of memory.

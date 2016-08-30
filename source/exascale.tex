@@ -1,0 +1,108 @@
+%%%%%%%%%%%%%%%%%%%% author.tex %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% sample root file for your "contribution" to a contributed volume
+%
+% Use this file as a template for your own input.
+%
+%%%%%%%%%%%%%%%% Springer %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% RECOMMENDED %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[graybox]{svmult}
+
+\usepackage{mathptmx}       % selects Times Roman as basic font
+\usepackage{helvet}         % selects Helvetica as sans-serif font
+\usepackage{courier}        % selects Courier as typewriter font
+\usepackage{type1cm}        % activate if the above 3 fonts are
+                            % not available on your system
+%
+\usepackage{makeidx}         % allows index generation
+\usepackage{graphicx}        % standard LaTeX graphics tool
+                             % when including figure files
+\usepackage{multicol}        % used for the two-column index
+\usepackage[bottom]{footmisc}% places footnotes at page bottom
+
+\usepackage[authoryear]{natbib}
+
+\newcommand{\onequarter}{$\frac{1}{4}$}
+\newcommand{\onetenth}{$\frac{1}{10}$}
+\newcommand{\toolname}[1]{\textsc{#1}}
+\newcommand{\mpipy}{\toolname{mpi4py}}
+\newcommand{\pyaverager}{\toolname{PyAverager}}
+\newcommand{\pyreshaper}{\toolname{PyReshaper}}
+\newcommand{\pyconform}{\toolname{PyConform}}
+
+
+% see the list of further useful packages
+% in the Reference Guide
+
+\makeindex             % used for the subject index
+                       % please use the style svind.ist with
+                       % your makeindex program
+
+\begin{document}
+
+% Compressed title page configuration
+
+%\title{\large A Design for a Scalable Ultra-High Resolution Climate Simulation Capability}
+
+%\nodate
+\title*{Preparing CESM for Exascale computing}
+\author{John M. Dennis, Chris Kerr, Brian Dobbins, Richard Mills, Sheri Mickelson, Youngsung Kim, Raghu Kumar, Kevin Paul, and Allison Baker}
+
+\institute{John M. Dennis \at Computational \& Information Systems Laboratory, National Center for Atmospheric Research, Boulder, CO 80307-3000 \email{dennis@ucar.edu}
+\and Richard D. Loft \at Computational \& Information Systems Laboratory, National Center for Atmospheric Research, Boulder, CO 80307-3000 \email{loft@ucar.edu}}
+
+%\begin{twoaffiliations}
+%$^1$Purdue University            & $^2$Colorado State University \\
+%Dept. of Computer Engineering  & Dept. of Electrical Engineering \\
+%West Lafayette, IN  47907-1285  USA & Fort Collins,  CO 80523-1373 USA \\
+%alis@ecn.purdue.edu     & chen.kim@colostate.edu \\
+%
+%
+%\\~\\ % put the next two affiliations next
+%$^3$Dillexie University                           &               $^4$Eldorado University \\
+%Electrical Engineering  Department                &               Dept. of Civil Engineering \\
+%Bragginon, TN  32107-1765 USA                     & Callaway, MD,
+%10523-1234 USA\\
+%\{ha, antmat\}@dillexie.edu     & \{yahu, vikg\}@eldorado.edu \\
+%\end{twoaffiliations}
+%
+
+        
+\maketitle
+
+
+
+%\footnotetext[1]{The work of this author was supported through National Science Foundation Cooperative Grant NSF01 which funds the National Center for Atmospheric Research (NCAR), and through the grants: \#OCI-0749206 and  \#OCE-0825754.  Additional funding is provided through the Department of Energy, CCPP Program Grant \#DE-PS02-07ER07-06.}
+
+
+%
+%   Paper Abstract
+%
+
+\abstract{Need an abstract here.}  
+   
+\input method.tex
+
+\input algorithm.tex
+
+\input program.tex
+
+\input software.tex
+
+\input bench.tex
+
+\input postproc.tex
+
+\section*{Acknowledgements}
+
+   Need to thank a bunch of people and programs here.  
+
+\bibliographystyle{plain}
+\bibliography{exascale}
+
+\end{document}
+
+
+%
