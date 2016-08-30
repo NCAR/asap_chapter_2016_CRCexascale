@@ -91,6 +91,8 @@ subroutine lu_slv01( lu, b )
 \end{figure}
 
      A vector implementation of the implicit solver code is provided in Figure \ref{fig:chem-v01}.  Note that while the {\em lu} and {\em b} data structures remain unchanged, the {\em k-loop} over all the individual solves has been pushed into the {\em lu\_slv} subroutine.  This fundamental transformation allows the compiler to generate vector code.  
+     
+     Added some new stuff here.
 
 \begin{figure}
 \begin{verbatim}
