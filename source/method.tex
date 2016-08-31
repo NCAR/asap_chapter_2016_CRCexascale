@@ -1,1 +1,55 @@
+
+% The chapter may provide an outline of the basic scientific methodology, which can include a
+% description of the fundamental equations or models as well as the type of scientific challenges
+% that require using these methods on exascale resources. It is of particular interest to describe
+% the formal complexity or method scalability with the size of the science problem. For some
+% methods physical size of a system is the primary challenge, especially when the method scales
+% non-linearly. Other problems may depend on being able to sample over significantly longer time
+% periods in order to properly describe realistic experimental situations. Another aspect is the data
+% type used in the algorithms, such as particle based, grid based methods, or a combination of
+% these. Some algorithms can be dealing with linear access to very structured data, others rely on
+% random access to irregular data.
+
 \section{Scientific Methodology [{\color{red} 2-3 pages, Dennis, Baker}] }\label{sec:method}
+
+%1) general earth system modeling and why it's important
+Climate results from complex interactions between processes in the ocean, atmosphere, land, and ice, and understanding how the Earth's climate system works has long been of scientific interest.  We are currently in the midst of a changing climate, and the need to both explain past and present climate states and to confidently predict future climate states is critical.  In particular, future climate predictions can potentially have societal and policy implications in such areas as water resource planning, agriculture practices, and human activities (e.g., deforestation, $CO_2$ emissions) \cite{washington2005}. Fortunately, advances in computing capabilities over the last decades have enabled the development of climate simulation codes, or Earth-system models (ESMs), which have significantly advanced climate science and improved understanding of the complexities of the climate system \cite{washington2009}.  ESMs are particularly important in climate science research as they serve as virtual laboratory for investigating the effects of external influences, such as increasing $CO_2$ levels in the atmosphere, or more generally answering ``What if ...?'' questions, such as ``What if the Greenland ice sheet melts?'' (e.g., see \cite{heavens2013}, \cite{zeebe2011}, \cite{easterbrook2009}).  In fact, ESMs are increasing being utilized to better prepare for future climate scenarios, and a prime example are the Coupled Model Comparison Projects (CMIPs) that occur every few years.  The CMIP projects 
+are international efforts to coordinate and compare climate model experiments from as many as twenty modelling groups (e.g., CMIP Phase 5 \citep{cmip5}).  After each CMIP, the Intergovernmental Panel on Climate Change (IPCC) \cite{ipcc-web} releases an assessment report summarizing the findings from the CMIP data, and the IPCC reports (and CMIP data)
+%(e.g., CMIP Phase 5 \citep{cmip5} experiments produced the report in \cite{stocker2013ipcc}). The CMIP data and IPCC reports 
+are widely utilized by scientists and policymakers alike to better comprehend future climate states. Indeed, climate science has a strong computational component that has prominently contributed to the current understanding of the Earth's climate system.
+
+
+%2) climate software in general + eqns and numerics
+To be both effective and accurate, climate simulation models must well-represent the physical processes of the major components in the climate system (atmospheres, oceans, sea ice, and land) and capture the complicated interactions between them.  Current climate models typically consist of models for each major climate component that are coupled together such that feedback occurs between components (e.g., \cite{washington2005}).  The model equations for the dynamics of the atmosphere, ocean and sea ice components are derived from basic conservation laws for energy, mass, and momentum which are tailored for each component.  In addition, an equation of state (i.e., gas law) is needed by the climate model to relate the temperature, pressure and density quantities. (An excellent and accessible resource for the mathematics and physics behind a climate model can be found in \cite{washington2005}.)  The complexity of the Earth's climate system has generally translated to climate simulations codes that are similarly complex, large in size, and typically the result of many years or even decades of development (e.g., \cite{easterbrook2011},\cite{pipitone2012} and continue to grown even more so as available computing power steadily increases.  For example, advances in computing have allowed for finer resolutions, the inclusion of more physical processes, and improved boundary interactions (e.g., air-sea) \cite{washington2009}.  These large climate models are continually evolving to include new features and take advantage of advances in new computing technologies.
+
+
+%3)cesm info
+The Community Earth System Model (CESM) is a fully-coupled climate simulation code \cite{cesm2013} that is increasingly popular with scientists around the globe.  The active development of CESM is led by the National Center for Atmospheric Research (NCAR), and the CESM code base, (Fortran) which has been developed over the last twenty years, currently contains over one and a half million lines of code.  CESM consists of multiple geophysical component models of the atmosphere, ocean, land, sea ice, land ice, and rivers.  These components can all run on different grid resolutions with different time steps, exchanging boundary data with each other (via MPI) through a central coupler.  Because CESM supports a variety of spatial resolutions and time-scales, simulations can be run on both state-of-the-art supercomputers as well as on an individual scientist's laptop.  Both the myriad of model configurations available to the user and the sheer number of physical processes represented contribute to the size and complexity of the CESM code.  Note that periodic releases to the community ensure that new science developments are accessible by all, and CESM's open-source availability encourages collaboration in the climate science community.
+
+%as well as to the challenge of taking advantage of new hardware and preserving code quality
+%difficulty of exhaustive software testing \citep{pipitone2012}. 
+
+
+
+
+
+{\color{red}Paragraph 4) computation needs (e.g., resolution/size)}
+
+even as computing capabilities increase, always want more - deman
+
+high-res
+eddy-resolving
+
+balance resolution and length with core time (wash2009)
+
+High-resolution (spatial and temporal) models are increasingly in demand as scientists seek to produce more accurate and realistic simulations, the importance of which should not be underestimated in light of potential societal and policy implications.  
+
+
+{\color{red} Paragraph 5) real examples of computing power needed (e.g. ASC run, IPCC CMIP runs)}
+
+CESM-LE \cite{kay2015}\\
+ASD \cite{small2014}\\
+CMIP\\
+
+%generic paragraph about this chapter
+This Chapter is organized as follows. In Section \ref{sec:algorithm}, we provide detailed desciptions of two focus areas in the CESM code. In section \ref{sec:program},  we describe our programming model ...{\color{red}ETC...}
