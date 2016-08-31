@@ -16,7 +16,7 @@
 Climate results from complex interactions between processes in the ocean, atmosphere, land, and ice, and understanding how the Earth's climate system works has long been of scientific interest.  We are currently in the midst of a changing climate, and the need to both explain past and present climate states and to confidently predict future climate states is critical.  In particular, future climate predictions can potentially have societal and policy implications in such areas as water resource planning, agriculture practices, and human activities (e.g., deforestation, $CO_2$ emissions) \cite{washington2005}. Fortunately, advances in computing capabilities over the last decades have enabled the development of climate simulation codes, or Earth-system models (ESMs), which have significantly advanced climate science and improved understanding of the complexities of the climate system \cite{washington2009}.  ESMs are particularly important in climate science research as they serve as virtual laboratory for investigating the effects of external influences, such as increasing $CO_2$ levels in the atmosphere, or more generally answering ``What if ...?'' questions, such as ``What if the Greenland ice sheet melts?'' (e.g., see \cite{heavens2013}, \cite{zeebe2011}, \cite{easterbrook2009}).  In fact, ESMs are increasing being utilized to better prepare for future climate scenarios, and a prime example are the Coupled Model Comparison Projects (CMIPs) that occur every few years.  The CMIP projects 
 are international efforts to coordinate and compare climate model experiments from as many as twenty modelling groups (e.g., CMIP Phase 5 \citep{cmip5}).  After each CMIP, the Intergovernmental Panel on Climate Change (IPCC) \cite{ipcc-web} releases an assessment report summarizing the findings from the CMIP data, and the IPCC reports (and CMIP data)
 %(e.g., CMIP Phase 5 \citep{cmip5} experiments produced the report in \cite{stocker2013ipcc}). The CMIP data and IPCC reports 
-are widely utilized by scientists and policymakers alike to better comprehend future climate states. Indeed, climate science has a strong computational component that has prominently contributed to the current understanding of the Earth's climate system.
+are widely utilized by scientists and policymakers alike to better comprehend future climate states. Indeed, climate science has a strong computational component that has prominently contributed to our current knowledge of the Earth's climate system.
 
 
 %2) climate software in general + eqns and numerics
@@ -29,27 +29,27 @@ The Community Earth System Model (CESM) is a fully-coupled climate simulation co
 %as well as to the challenge of taking advantage of new hardware and preserving code quality
 %difficulty of exhaustive software testing \citep{pipitone2012}. 
 
+%{\color{red}Paragraph 4) computation needs (e.g., resolution/size)}
+Even though high performance computing capabilities have been steadily increasing, the climate modelling community's requests for computing resources continue to outpace available resources.  High-resolution (spatial and temporal) models are increasingly in demand as scientists seek to produce more accurate and realistic simulations, the importance of which should not be underestimated in light of potential societal implications.  High spatial resolution simulations are often required to resolve particular phenomena; for example, ocean eddies, narrow ocean currents, tropical cyclones, fronts, and hurricanes all require finer resolutions (i.e., less than 1\degree) than can be reasonably run for multi-century simulations and ensembles \cite{washington2009, small2014}.  High resolutions also improve small and large-scale interactions and can reduce bias in some large-scale features \cite{small2014}.  A recent high-resolution CESM simulation at NCAR by Small et al. \cite{small2014} completed one hundred years of ‘‘present-day’’ simulation, with the atmospheric component at 0.25\degree grid spacing and ocean component at 0.1\degree, which was the longest run to date with CESM with .25\degree atmosphere.  This computationally expensive simulation consumed nearly 45 million CPU hours on NCAR's Yellowstone computing system, with a throughput of two simulated model years per day \cite{small2014}. Clearly a single simulation of multiple centuries or an ensemble of simulations at this resolution is well-beyond the computing capacity available to most climate scientists.  High-temporal resolution simulations are clearly critical to paleoclimate studies (addressing past climate states), but also to large ensemble climate simulation studies, such as the recent CESM-Large Ensemble (LE) Project for studying internal climate variability \citep{kay2015}.
+The
+CESM-LE Project includes a 40-member ensemble of 180-year fully-coupled CESM climate
+simulations, in addition to several additional multi-century control simulations.  These simulations were all run
+at approximately 1\degree horizontal resolution in all components.
+
+17 M core hours for first 30 member s + control
+ 
 
 
 
-
-{\color{red}Paragraph 4) computation needs (e.g., resolution/size)}
-
-even as computing capabilities increase, always want more - deman
-
-high-res
-eddy-resolving
-
-balance resolution and length with core time (wash2009)
-
-High-resolution (spatial and temporal) models are increasingly in demand as scientists seek to produce more accurate and realistic simulations, the importance of which should not be underestimated in light of potential societal and policy implications.  
+{\color{red} Paragraph 5) Why do we need/want/are excited about exascale?}
+In practice, climate scientists must carefully balance their science needs (e.g., resolution, simulation length, process details) with the amount of available computing power \cite{washington2009} and compromises are frequently required. With the exascale era, the hope is for \\
 
 
-{\color{red} Paragraph 5) real examples of computing power needed (e.g. ASC run, IPCC CMIP runs)}
 
-CESM-LE \cite{kay2015}\\
-ASD \cite{small2014}\\
-CMIP\\
+high-res satellite images\\
+
+
+
 
 %generic paragraph about this chapter
-This Chapter is organized as follows. In Section \ref{sec:algorithm}, we provide detailed desciptions of two focus areas in the CESM code. In section \ref{sec:program},  we describe our programming model ...{\color{red}ETC...}
+This Chapter is organized as follows. In Section \ref{sec:algorithm}, we provide detailed descriptions of two focus areas in the CESM code. In section \ref{sec:program},  we describe our programming model ...{\color{red}ETC...}
