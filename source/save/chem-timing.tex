@@ -1,0 +1,18 @@
+\begin{table}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+        & \multicolumn{2}{c|}{SNB} & \multicolumn{2}{c|}{HSW} & \multicolumn{2}{c|}{KNL/DRAM} & \multicolumn{2}{c|}{KNL/HBM} \\
+        & \multicolumn{8}{c|}{threads/node} \\
+version       &    1  & 16    & 1    & 72    & 1      & 68    & 1     & 68 \\
+s00           &  75.8 & 77.4  & 51.1 & 59.0  & 219.3  & 214.7 & 219.9 & 217.4  \\
+v00(vlen=858) &  75.9 & 144.0 & 56.4 & 198.9 & 280.0  & 394.6 & 300.0 & 323.6  \\
+v01(vlen=858) &  60.6 &  61.5 & 29.9 & 135.9 & 191.8  & 554.0 & 197.9 & 404.9  \\
+v02(vlen=16)  &  39.9 &  41.1& 23.9 &  42.7 &  99.3  & 223.2 & 104.4 & 136.9 \\
+v03(vlen=16)  &  33.7 &  34.5 & 20.0 &  22.2 &  72.2  & 159.4 &  73.2 & 105.1 \\
+v04(vlen=16)  &  24.2 &  25.4 & 12.7 &  14.7 &  56.6  & 134.6 &  57.7 & 84.0  \\
+\hline
+\end{tabular}
+\caption{Time in miliseconds for chemistry implicit solver kernel. {\color{red}  Need timing results for fully populated node.  Replace KNC results with KNL results.}\label{tbl:chem-timing}}
+\end{center}
+\end{table}

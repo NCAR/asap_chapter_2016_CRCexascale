@@ -1,0 +1,38 @@
+perfTestWACCM
+
+RESOURCE_STALLS (6.7% reduction)
+ 
+ipcc:       1471.1
+dungeon01:  1371.0
+
+
+PAPI_L2_DCM   (76% redunction in L2_DCM)
+
+ipcc:        70.0
+dungeon01:   17.0
+
+
+PAPI_L3_TCM   (41% reduction in L3_TCM)
+
+ipcc:       11.1
+dungeon01:   6.5
+
+PAPI_DP_OPS
+A:           865.4
+B:          1523.7
+
+PAPI_TLB_DM
+
+A:           0.2
+B:           0.1
+
+
+PAPI_VEC_DP
+A:           252.6
+B:          1115.9
+
+(PAPI_DP_OPS - PAPI_VEC_DP)   fewer non-vectorized flops
+A:         612.8
+B:         407.8
+
+

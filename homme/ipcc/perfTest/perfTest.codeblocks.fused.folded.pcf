@@ -1,0 +1,1146 @@
+DEFAULT_OPTIONS
+
+LEVEL               THREAD
+UNITS               NANOSEC
+LOOK_BACK           100
+SPEED               1
+FLAG_ICONS          ENABLED
+NUM_OF_STATE_COLORS 1000
+YMAX_SCALE          37
+
+
+DEFAULT_SEMANTIC
+
+THREAD_FUNC          State As Is
+
+
+STATES
+0    Idle
+1    Running
+2    Not created
+3    Waiting a message
+4    Blocking Send
+5    Synchronization
+6    Test/Probe
+7    Scheduling and Fork/Join
+8    Wait/WaitAll
+9    Blocked
+10    Immediate Send
+11    Immediate Receive
+12    I/O
+13    Group Communication
+14    Tracing Disabled
+15    Others
+16    Send Receive
+17    Memory transfer
+18    Profiling
+19    On-line analysis
+20    Remote memory access
+21    Atomic memory operation
+22    Memory ordering operation
+23    Distributed locking
+
+
+STATES_COLOR
+0    {117,195,255}
+1    {0,0,255}
+2    {255,255,255}
+3    {255,0,0}
+4    {255,0,174}
+5    {179,0,0}
+6    {0,255,0}
+7    {255,255,0}
+8    {235,0,0}
+9    {0,162,0}
+10    {255,0,255}
+11    {100,100,177}
+12    {172,174,41}
+13    {255,144,26}
+14    {2,255,177}
+15    {192,224,0}
+16    {66,66,66}
+17    {255,0,96}
+18    {169,169,169}
+19    {169,0,0}
+20    {0,109,255}
+21    {200,61,68}
+22    {200,66,0}
+23    {0,41,0}
+
+
+EVENT_TYPE
+9   50000003    MPI Other
+VALUES
+32   MPI_Finalize
+31   MPI_Init
+0   Outside MPI
+
+
+EVENT_TYPE
+6    40000033    Executing CPU
+
+
+EVENT_TYPE
+6    40000001    Application
+VALUES
+0      End
+1      Begin
+
+
+EVENT_TYPE
+6    40000050    RAW clock() value from system
+
+
+EVENT_TYPE
+6    40000003    Flushing Traces
+VALUES
+0      End
+1      Begin
+
+
+EVENT_TYPE
+6    40000036    Process IDentifier
+6    40000037    Parent Process IDentifier
+6    40000038    fork() depth
+
+
+EVENT_TYPE
+7  42000050 PAPI_TOT_INS [Instr completed]
+7  42000059 PAPI_TOT_CYC [Total cycles]
+7  42000002 PAPI_L2_DCM [L2D cache misses]
+7  42000000 PAPI_L1_DCM [L1D cache misses]
+7  42000020 PAPI_TLB_DM [Data TLB misses]
+7  42000008 PAPI_L3_TCM [L3 cache misses]
+7  42001035 RESOURCE_STALLS [Resource related stall cycles]
+7  42000054 PAPI_SR_INS [Stores]
+7  42000053 PAPI_LD_INS [Loads]
+7  42000055 PAPI_BR_INS [Branches]
+7  42000106 PAPI_VEC_DP [DP Vector/SIMD instr]
+7  42001028 SIMD_FP_256:PACKED_DOUBLE [Counts 256-bit packed floating point instructions, masks:Counts 256-bit packed double-precision]
+7  42000104 PAPI_DP_OPS [DP operations]
+7  41999999 Active hardware counter set
+
+
+GRADIENT_COLOR
+0    {0,255,2}
+1    {0,244,13}
+2    {0,232,25}
+3    {0,220,37}
+4    {0,209,48}
+5    {0,197,60}
+6    {0,185,72}
+7    {0,173,84}
+8    {0,162,95}
+9    {0,150,107}
+10    {0,138,119}
+11    {0,127,130}
+12    {0,115,142}
+13    {0,103,154}
+14    {0,91,166}
+
+
+GRADIENT_NAMES
+0    Gradient 0
+1    Grad. 1/MPI Events
+2    Grad. 2/OMP Events
+3    Grad. 3/OMP locks
+4    Grad. 4/User func
+5    Grad. 5/User Events
+6    Grad. 6/General Events
+7    Grad. 7/Hardware Counters
+8    Gradient 8
+9    Gradient 9
+10    Gradient 10
+11    Gradient 11
+12    Gradient 12
+13    Gradient 13
+14    Gradient 14
+
+
+EVENT_TYPE
+0    60000019    User function
+VALUES
+0   End
+1 Unresolved
+2 _NOT_Found
+3 process_..ting_lub [process_existing_lub]
+4 strcmp
+5 __kmp_it..init_3_0 [__kmp_itt_fsync_acquired_init_3_0]
+6 __kmp_re.._startup [__kmp_register_library_startup]
+7 __kmp_str_format
+8 rml::int..::TLSKey [rml::internal::TLSKey::TLSKey]
+9 rml::int..rUseList [rml::internal::BackRefMaster::addToForUseList]
+10 rml::int..olMalloc [rml::internal::internalPoolMalloc]
+11 strnlen_s
+12 scalable_free
+13 __kmp_st..uf_print [__kmp_str_buf_print]
+14 __kmp_stg_cmp
+15 __kmp_stg_find
+16 __kmp_st..tacksize [__kmp_stg_parse_stacksize]
+17 __kmp_match_str
+18 __kmp_re..ter_root [__kmp_register_root]
+19 __kmp_al..ate_team [__kmp_allocate_team]
+20 __kmp_in..cit_task [__kmp_init_implicit_task]
+21 __kmp_in..t_memory [__kmp_initialize_fast_memory]
+22 __kmp_se..ack_info [__kmp_set_stack_info]
+23 __kmp_in.._signals [__kmp_install_signals]
+24 __kmp_af..itialize [__kmp_affinity_initialize]
+25 __kmp_au..itialize [__kmp_aux_affinity_initialize]
+26 __kmp_af..ild_nums [__kmp_affinity_assign_child_nums]
+27 __kmp_af..proclist [__kmp_affinity_process_proclist]
+28 GPTLenable
+29 GPTLsetutr
+30 __kmp_ap..read_num [__kmp_api_omp_get_thread_num]
+31 __kmp_se..parallel [__kmp_serialized_parallel]
+32 __kmpc_f..c_init_4 [__kmpc_for_static_init_4]
+33 GPTLstopf
+34 __open_nocancel
+35 subq_abs.L
+36 __kmp_ge..d_id_reg [__kmp_get_global_thread_id_reg]
+37 Backend_..entation [Backend_setInInstrumentation]
+38 gptlpr_q..y_write_ [gptlpr_query_write_]
+39 _int_free
+40 cmp
+41 __kmp_env_set
+42 __kmp_query_cpuid
+43 __kmp_en..itialize [__kmp_env_initialize]
+44 rml::int..erator() [rml::internal::LargeObjectCacheImpl<rml::internal::LargeObjectCacheProps<8192ul, 8388608ul, 8192u, 2, 2, 16> >::CacheBin::CacheBinFunctor::operator()]
+45 __kmp_pa..nity_env [__kmp_parse_affinity_env]
+46 __kmp_barrier
+47 GPTLsetoption
+48 GPTLinitialize
+49 GPTLstartf
+50 __kmp_po..m_thread [__kmp_pop_current_task_from_thread]
+51 __kmp_ap..arallel_ [__kmp_api_omp_in_parallel_]
+52 mpi_irecv
+53 mpi_allgather
+54 __kmp_ac..ket_lock [__kmp_acquire_ticket_lock]
+55 __kmp_do..itialize [__kmp_do_serial_initialize]
+56 rml::int..ol::init [rml::internal::ExtMemoryPool::init]
+57 rml::int..ewRegion [rml::internal::Backend::addNewRegion]
+58 __kmp_ru..itialize [__kmp_runtime_initialize]
+59 mem_prim_move
+60 ___kmp_allocate
+61 gptlenable_
+62 __kmpc_end_master
+63 init_gettimeofday
+64 interp_m..odof_..0 [interp_movie_mod_mp_getiodof_..0]
+65 GPTLpr_s..ary_file [GPTLpr_summary_file]
+66 scalable_malloc
+67 __kmp_ac..ing_lock [__kmp_acquire_queuing_lock]
+68 __kmpc_e..parallel [__kmpc_end_serialized_parallel]
+69 __kmp_it..init_3_0 [__kmp_itt_thread_set_name_init_3_0]
+70 __kmp_af..icid_map [__kmp_affinity_create_x2apicid_map]
+71 __kmp_fork_call
+72 __kmp_re..tem_time [__kmp_read_system_time]
+73 __kmp_gt..specific [__kmp_gtid_set_specific]
+74 __kmpc_barrier
+75 mpi_isend
+76 rml::int..ootstrap [rml::internal::Backend::bootstrap]
+77 __kmpc_master
+78 __kmpc_ok_to_fork
+79 mpi_allreduce
+80 __kmp_re..r_atfork [__kmp_register_atfork]
+81 __kmp_en..y_thread [__kmp_entry_thread]
+82 __kmp_stg_parse
+83 getentryf
+84 Extrae_g..d_number [Extrae_get_thread_number]
+85 mpi_waitall
+86 rml::int..geObject [rml::internal::ExtMemoryPool::mallocLargeObject]
+87 do_lookup_x
+88 _lapi_di..r<false> [_lapi_dispatcher<false>]
+
+
+EVENT_TYPE
+0    60000119    User function line
+VALUES
+0   End
+1 0 (Unresolved)
+2 0 (_NOT_Found)
+3 1294 (backend.cpp, libiomp5.so)
+4 1332 (backend.cpp, libiomp5.so)
+5 140 (backref.cpp, libiomp5.so)
+6 0 (bsearch.c, ld-2.12.so)
+7 0 (dl-lookup.c, ld-2.12.so)
+8 229 (f_wrappers.c, perfTest)
+9 391 (f_wrappers.c, perfTest)
+10 0 (for_lub_mgt.c, perfTest)
+11 213 (frontend.cpp, libiomp5.so)
+12 1073 (frontend.cpp, libiomp5.so)
+13 2457 (frontend.cpp, libiomp5.so)
+14 2465 (frontend.cpp, libiomp5.so)
+15 2801 (frontend.cpp, libiomp5.so)
+16 2807 (frontend.cpp, libiomp5.so)
+17 262 (gptl.c, perfTest)
+18 387 (gptl.c, perfTest)
+19 416 (gptl.c, perfTest)
+20 859 (gptl.c, perfTest)
+21 1434 (gptl.c, perfTest)
+22 1479 (gptl.c, perfTest)
+23 1674 (gptl.c, perfTest)
+24 2732 (gptl.c, perfTest)
+25 3348 (gptl.c, perfTest)
+26 3997 (gptl.c, perfTest)
+27 4009 (gptl.c, perfTest)
+28 4273 (gptl.c, perfTest)
+29 0 (ia32_addsubq.c, perfTest)
+30 0 (interp.c, libpthread-2.12.so)
+31 0 (interp_m.._mod.F90) [0 (interp_movie_mod.F90, perfTest)]
+32 573 (ittnotif..static.c) [573 (ittnotify_static.c, libiomp5.so)]
+33 137 (ittnotif..static.h) [137 (ittnotify_static.h, libiomp5.so)]
+34 2976 (kmp.h, libiomp5.so)
+35 2978 (kmp.h, libiomp5.so)
+36 246 (kmp_affinity.cpp, libiomp5.so)
+37 1356 (kmp_affinity.cpp, libiomp5.so)
+38 1635 (kmp_affinity.cpp, libiomp5.so)
+39 2827 (kmp_affinity.cpp, libiomp5.so)
+40 3496 (kmp_affinity.cpp, libiomp5.so)
+41 3536 (kmp_affinity.cpp, libiomp5.so)
+42 4069 (kmp_affinity.cpp, libiomp5.so)
+43 1789 (kmp_alloc.c, libiomp5.so)
+44 2157 (kmp_alloc.c, libiomp5.so)
+45 1333 (kmp_barrier.cpp, libiomp5.so)
+46 1337 (kmp_barrier.cpp, libiomp5.so)
+47 1339 (kmp_barrier.cpp, libiomp5.so)
+48 188 (kmp_csupport.c, libiomp5.so)
+49 614 (kmp_csupport.c, libiomp5.so)
+50 694 (kmp_csupport.c, libiomp5.so)
+51 718 (kmp_csupport.c, libiomp5.so)
+52 730 (kmp_csupport.c, libiomp5.so)
+53 786 (kmp_csupport.c, libiomp5.so)
+54 232 (kmp_environment.c, libiomp5.so)
+55 426 (kmp_ftn_entry.h, libiomp5.so)
+56 444 (kmp_ftn_entry.h, libiomp5.so)
+57 445 (kmp_ftn_entry.h, libiomp5.so)
+58 551 (kmp_ftn_entry.h, libiomp5.so)
+59 557 (kmp_ftn_entry.h, libiomp5.so)
+60 566 (kmp_ftn_entry.h, libiomp5.so)
+61 784 (kmp_lock.cpp, libiomp5.so)
+62 1420 (kmp_lock.cpp, libiomp5.so)
+63 250 (kmp_runtime.c, libiomp5.so)
+64 253 (kmp_runtime.c, libiomp5.so)
+65 257 (kmp_runtime.c, libiomp5.so)
+66 259 (kmp_runtime.c, libiomp5.so)
+67 287 (kmp_runtime.c, libiomp5.so)
+68 1404 (kmp_runtime.c, libiomp5.so)
+69 1412 (kmp_runtime.c, libiomp5.so)
+70 1620 (kmp_runtime.c, libiomp5.so)
+71 1915 (kmp_runtime.c, libiomp5.so)
+72 3838 (kmp_runtime.c, libiomp5.so)
+73 4980 (kmp_runtime.c, libiomp5.so)
+74 4984 (kmp_runtime.c, libiomp5.so)
+75 5306 (kmp_runtime.c, libiomp5.so)
+76 6337 (kmp_runtime.c, libiomp5.so)
+77 6524 (kmp_runtime.c, libiomp5.so)
+78 779 (kmp_sched.cpp, libiomp5.so)
+79 782 (kmp_sched.cpp, libiomp5.so)
+80 134 (kmp_settings.c, libiomp5.so)
+81 919 (kmp_settings.c, libiomp5.so)
+82 934 (kmp_settings.c, libiomp5.so)
+83 2136 (kmp_settings.c, libiomp5.so)
+84 2144 (kmp_settings.c, libiomp5.so)
+85 4807 (kmp_settings.c, libiomp5.so)
+86 4818 (kmp_settings.c, libiomp5.so)
+87 4826 (kmp_settings.c, libiomp5.so)
+88 4832 (kmp_settings.c, libiomp5.so)
+89 5031 (kmp_settings.c, libiomp5.so)
+90 5173 (kmp_settings.c, libiomp5.so)
+91 277 (kmp_str.c, libiomp5.so)
+92 510 (kmp_str.c, libiomp5.so)
+93 397 (kmp_tasking.c, libiomp5.so)
+94 840 (kmp_tasking.c, libiomp5.so)
+95 159 (kmp_utility.c, libiomp5.so)
+96 69 (lapi_dispatcher.c, libpami.so)
+97 79 (lapi_dispatcher.c, libpami.so)
+98 264 (large_objects.cpp, libiomp5.so)
+99 822 (large_objects.cpp, libiomp5.so)
+100 0 (malloc.c, libc-2.12.so)
+101 324 (mem_prim..es_lib.c) [324 (mem_primitives_lib.c, libiomp5.so)]
+102 377 (mem_prim..es_lib.c) [377 (mem_primitives_lib.c, libiomp5.so)]
+103 234 (mpi_inte..coll_f.c) [234 (mpi_interface_coll_f.c, libmpitracef-3.3.0.so)]
+104 430 (mpi_inte..coll_f.c) [430 (mpi_interface_coll_f.c, libmpitracef-3.3.0.so)]
+105 319 (mpi_inte.._p2p_f.c) [319 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+106 323 (mpi_inte.._p2p_f.c) [323 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+107 326 (mpi_inte.._p2p_f.c) [326 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+108 459 (mpi_inte.._p2p_f.c) [459 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+109 463 (mpi_inte.._p2p_f.c) [463 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+110 466 (mpi_inte.._p2p_f.c) [466 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+111 729 (mpi_inte.._p2p_f.c) [729 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+112 85 (strnlen_s.c, libiomp5.so)
+113 78 (threadid.c, libmpitracef-3.3.0.so)
+114 2395 (wrapper.c, libmpitracef-3.3.0.so)
+115 696 (z_Linux_util.c, libiomp5.so)
+116 1468 (z_Linux_util.c, libiomp5.so)
+117 1614 (z_Linux_util.c, libiomp5.so)
+118 1937 (z_Linux_util.c, libiomp5.so)
+119 2009 (z_Linux_util.c, libiomp5.so)
+120 2129 (z_Linux_util.c, libiomp5.so)
+121 2144 (z_Linux_util.c, libiomp5.so)
+
+
+EVENT_TYPE
+0    30000000    Sampled functions
+0    30000001    Sampled functions (depth 1)
+VALUES
+0   End
+1 Unresolved
+2 _NOT_Found
+3 process_..ting_lub [process_existing_lub]
+4 strcmp
+5 __kmp_it..init_3_0 [__kmp_itt_fsync_acquired_init_3_0]
+6 __kmp_re.._startup [__kmp_register_library_startup]
+7 __kmp_str_format
+8 rml::int..::TLSKey [rml::internal::TLSKey::TLSKey]
+9 rml::int..rUseList [rml::internal::BackRefMaster::addToForUseList]
+10 rml::int..olMalloc [rml::internal::internalPoolMalloc]
+11 strnlen_s
+12 scalable_free
+13 __kmp_st..uf_print [__kmp_str_buf_print]
+14 __kmp_stg_cmp
+15 __kmp_stg_find
+16 __kmp_st..tacksize [__kmp_stg_parse_stacksize]
+17 __kmp_match_str
+18 __kmp_re..ter_root [__kmp_register_root]
+19 __kmp_al..ate_team [__kmp_allocate_team]
+20 __kmp_in..cit_task [__kmp_init_implicit_task]
+21 __kmp_in..t_memory [__kmp_initialize_fast_memory]
+22 __kmp_se..ack_info [__kmp_set_stack_info]
+23 __kmp_in.._signals [__kmp_install_signals]
+24 __kmp_af..itialize [__kmp_affinity_initialize]
+25 __kmp_au..itialize [__kmp_aux_affinity_initialize]
+26 __kmp_af..ild_nums [__kmp_affinity_assign_child_nums]
+27 __kmp_af..proclist [__kmp_affinity_process_proclist]
+28 GPTLenable
+29 GPTLsetutr
+30 __kmp_ap..read_num [__kmp_api_omp_get_thread_num]
+31 __kmp_se..parallel [__kmp_serialized_parallel]
+32 __kmpc_f..c_init_4 [__kmpc_for_static_init_4]
+33 GPTLstopf
+34 __open_nocancel
+35 subq_abs.L
+36 __kmp_ge..d_id_reg [__kmp_get_global_thread_id_reg]
+37 Backend_..entation [Backend_setInInstrumentation]
+38 gptlpr_q..y_write_ [gptlpr_query_write_]
+39 _int_free
+40 cmp
+41 __kmp_env_set
+42 __kmp_query_cpuid
+43 __kmp_en..itialize [__kmp_env_initialize]
+44 rml::int..erator() [rml::internal::LargeObjectCacheImpl<rml::internal::LargeObjectCacheProps<8192ul, 8388608ul, 8192u, 2, 2, 16> >::CacheBin::CacheBinFunctor::operator()]
+45 __kmp_pa..nity_env [__kmp_parse_affinity_env]
+46 __kmp_barrier
+47 GPTLsetoption
+48 GPTLinitialize
+49 GPTLstartf
+50 __kmp_po..m_thread [__kmp_pop_current_task_from_thread]
+51 __kmp_ap..arallel_ [__kmp_api_omp_in_parallel_]
+52 mpi_irecv
+53 mpi_allgather
+54 __kmp_ac..ket_lock [__kmp_acquire_ticket_lock]
+55 __kmp_do..itialize [__kmp_do_serial_initialize]
+56 rml::int..ol::init [rml::internal::ExtMemoryPool::init]
+57 rml::int..ewRegion [rml::internal::Backend::addNewRegion]
+58 __kmp_ru..itialize [__kmp_runtime_initialize]
+59 mem_prim_move
+60 ___kmp_allocate
+61 gptlenable_
+62 __kmpc_end_master
+63 init_gettimeofday
+64 interp_m..odof_..0 [interp_movie_mod_mp_getiodof_..0]
+65 GPTLpr_s..ary_file [GPTLpr_summary_file]
+66 scalable_malloc
+67 __kmp_ac..ing_lock [__kmp_acquire_queuing_lock]
+68 __kmpc_e..parallel [__kmpc_end_serialized_parallel]
+69 __kmp_it..init_3_0 [__kmp_itt_thread_set_name_init_3_0]
+70 __kmp_af..icid_map [__kmp_affinity_create_x2apicid_map]
+71 __kmp_fork_call
+72 __kmp_re..tem_time [__kmp_read_system_time]
+73 __kmp_gt..specific [__kmp_gtid_set_specific]
+74 __kmpc_barrier
+75 mpi_isend
+76 rml::int..ootstrap [rml::internal::Backend::bootstrap]
+77 __kmpc_master
+78 __kmpc_ok_to_fork
+79 mpi_allreduce
+80 __kmp_re..r_atfork [__kmp_register_atfork]
+81 __kmp_en..y_thread [__kmp_entry_thread]
+82 __kmp_stg_parse
+83 getentryf
+84 Extrae_g..d_number [Extrae_get_thread_number]
+85 mpi_waitall
+86 rml::int..geObject [rml::internal::ExtMemoryPool::mallocLargeObject]
+87 do_lookup_x
+88 _lapi_di..r<false> [_lapi_dispatcher<false>]
+
+
+EVENT_TYPE
+0    30000100    Sampled line functions (depth 0)
+0    30000101    Sampled lines functions (depth 1)
+VALUES
+0   End
+1 0 (Unresolved)
+2 0 (_NOT_Found)
+3 1294 (backend.cpp, libiomp5.so)
+4 1332 (backend.cpp, libiomp5.so)
+5 140 (backref.cpp, libiomp5.so)
+6 0 (bsearch.c, ld-2.12.so)
+7 0 (dl-lookup.c, ld-2.12.so)
+8 229 (f_wrappers.c, perfTest)
+9 391 (f_wrappers.c, perfTest)
+10 0 (for_lub_mgt.c, perfTest)
+11 213 (frontend.cpp, libiomp5.so)
+12 1073 (frontend.cpp, libiomp5.so)
+13 2457 (frontend.cpp, libiomp5.so)
+14 2465 (frontend.cpp, libiomp5.so)
+15 2801 (frontend.cpp, libiomp5.so)
+16 2807 (frontend.cpp, libiomp5.so)
+17 262 (gptl.c, perfTest)
+18 387 (gptl.c, perfTest)
+19 416 (gptl.c, perfTest)
+20 859 (gptl.c, perfTest)
+21 1434 (gptl.c, perfTest)
+22 1479 (gptl.c, perfTest)
+23 1674 (gptl.c, perfTest)
+24 2732 (gptl.c, perfTest)
+25 3348 (gptl.c, perfTest)
+26 3997 (gptl.c, perfTest)
+27 4009 (gptl.c, perfTest)
+28 4273 (gptl.c, perfTest)
+29 0 (ia32_addsubq.c, perfTest)
+30 0 (interp.c, libpthread-2.12.so)
+31 0 (interp_m.._mod.F90) [0 (interp_movie_mod.F90, perfTest)]
+32 573 (ittnotif..static.c) [573 (ittnotify_static.c, libiomp5.so)]
+33 137 (ittnotif..static.h) [137 (ittnotify_static.h, libiomp5.so)]
+34 2976 (kmp.h, libiomp5.so)
+35 2978 (kmp.h, libiomp5.so)
+36 246 (kmp_affinity.cpp, libiomp5.so)
+37 1356 (kmp_affinity.cpp, libiomp5.so)
+38 1635 (kmp_affinity.cpp, libiomp5.so)
+39 2827 (kmp_affinity.cpp, libiomp5.so)
+40 3496 (kmp_affinity.cpp, libiomp5.so)
+41 3536 (kmp_affinity.cpp, libiomp5.so)
+42 4069 (kmp_affinity.cpp, libiomp5.so)
+43 1789 (kmp_alloc.c, libiomp5.so)
+44 2157 (kmp_alloc.c, libiomp5.so)
+45 1333 (kmp_barrier.cpp, libiomp5.so)
+46 1337 (kmp_barrier.cpp, libiomp5.so)
+47 1339 (kmp_barrier.cpp, libiomp5.so)
+48 188 (kmp_csupport.c, libiomp5.so)
+49 614 (kmp_csupport.c, libiomp5.so)
+50 694 (kmp_csupport.c, libiomp5.so)
+51 718 (kmp_csupport.c, libiomp5.so)
+52 730 (kmp_csupport.c, libiomp5.so)
+53 786 (kmp_csupport.c, libiomp5.so)
+54 232 (kmp_environment.c, libiomp5.so)
+55 426 (kmp_ftn_entry.h, libiomp5.so)
+56 444 (kmp_ftn_entry.h, libiomp5.so)
+57 445 (kmp_ftn_entry.h, libiomp5.so)
+58 551 (kmp_ftn_entry.h, libiomp5.so)
+59 557 (kmp_ftn_entry.h, libiomp5.so)
+60 566 (kmp_ftn_entry.h, libiomp5.so)
+61 784 (kmp_lock.cpp, libiomp5.so)
+62 1420 (kmp_lock.cpp, libiomp5.so)
+63 250 (kmp_runtime.c, libiomp5.so)
+64 253 (kmp_runtime.c, libiomp5.so)
+65 257 (kmp_runtime.c, libiomp5.so)
+66 259 (kmp_runtime.c, libiomp5.so)
+67 287 (kmp_runtime.c, libiomp5.so)
+68 1404 (kmp_runtime.c, libiomp5.so)
+69 1412 (kmp_runtime.c, libiomp5.so)
+70 1620 (kmp_runtime.c, libiomp5.so)
+71 1915 (kmp_runtime.c, libiomp5.so)
+72 3838 (kmp_runtime.c, libiomp5.so)
+73 4980 (kmp_runtime.c, libiomp5.so)
+74 4984 (kmp_runtime.c, libiomp5.so)
+75 5306 (kmp_runtime.c, libiomp5.so)
+76 6337 (kmp_runtime.c, libiomp5.so)
+77 6524 (kmp_runtime.c, libiomp5.so)
+78 779 (kmp_sched.cpp, libiomp5.so)
+79 782 (kmp_sched.cpp, libiomp5.so)
+80 134 (kmp_settings.c, libiomp5.so)
+81 919 (kmp_settings.c, libiomp5.so)
+82 934 (kmp_settings.c, libiomp5.so)
+83 2136 (kmp_settings.c, libiomp5.so)
+84 2144 (kmp_settings.c, libiomp5.so)
+85 4807 (kmp_settings.c, libiomp5.so)
+86 4818 (kmp_settings.c, libiomp5.so)
+87 4826 (kmp_settings.c, libiomp5.so)
+88 4832 (kmp_settings.c, libiomp5.so)
+89 5031 (kmp_settings.c, libiomp5.so)
+90 5173 (kmp_settings.c, libiomp5.so)
+91 277 (kmp_str.c, libiomp5.so)
+92 510 (kmp_str.c, libiomp5.so)
+93 397 (kmp_tasking.c, libiomp5.so)
+94 840 (kmp_tasking.c, libiomp5.so)
+95 159 (kmp_utility.c, libiomp5.so)
+96 69 (lapi_dispatcher.c, libpami.so)
+97 79 (lapi_dispatcher.c, libpami.so)
+98 264 (large_objects.cpp, libiomp5.so)
+99 822 (large_objects.cpp, libiomp5.so)
+100 0 (malloc.c, libc-2.12.so)
+101 324 (mem_prim..es_lib.c) [324 (mem_primitives_lib.c, libiomp5.so)]
+102 377 (mem_prim..es_lib.c) [377 (mem_primitives_lib.c, libiomp5.so)]
+103 234 (mpi_inte..coll_f.c) [234 (mpi_interface_coll_f.c, libmpitracef-3.3.0.so)]
+104 430 (mpi_inte..coll_f.c) [430 (mpi_interface_coll_f.c, libmpitracef-3.3.0.so)]
+105 319 (mpi_inte.._p2p_f.c) [319 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+106 323 (mpi_inte.._p2p_f.c) [323 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+107 326 (mpi_inte.._p2p_f.c) [326 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+108 459 (mpi_inte.._p2p_f.c) [459 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+109 463 (mpi_inte.._p2p_f.c) [463 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+110 466 (mpi_inte.._p2p_f.c) [466 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+111 729 (mpi_inte.._p2p_f.c) [729 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+112 85 (strnlen_s.c, libiomp5.so)
+113 78 (threadid.c, libmpitracef-3.3.0.so)
+114 2395 (wrapper.c, libmpitracef-3.3.0.so)
+115 696 (z_Linux_util.c, libiomp5.so)
+116 1468 (z_Linux_util.c, libiomp5.so)
+117 1614 (z_Linux_util.c, libiomp5.so)
+118 1937 (z_Linux_util.c, libiomp5.so)
+119 2009 (z_Linux_util.c, libiomp5.so)
+120 2129 (z_Linux_util.c, libiomp5.so)
+121 2144 (z_Linux_util.c, libiomp5.so)
+
+
+EVENT_TYPE
+0    54000000    Number of P2P MPI calls
+0    54000001    Bytes sent in P2P MPI calls
+0    54000002    Bytes received in P2P MPI calls
+0    54000003    Number of GLOBAL MPI calls
+0    54000004    Bytes sent in GLOBAL MPI calls
+0    54000005    Bytes received in GLOBAL MPI calls
+0    54000006    Elapsed time in MPI
+0    54000007    Number of incoming P2P MPI calls
+0    54000008    Number of outgoing P2P MPI calls
+0    54000009    Number of partners in incoming communications
+0    54000010    Number of partners in outgoing communications
+0    54000011    Elapsed time in OTHER MPI calls
+0    54000012    Elapsed time in P2P MPI calls
+0    54000013    Elapsed time in GLOBAL MPI calls
+0    54000014    Number of OTHER MPI calls
+
+
+EVENT_TYPE
+9    40000018    Tracing mode:
+VALUES
+1      Detailed
+2      CPU Bursts
+
+
+
+EVENT_TYPE
+0 30000200 Code block for sampled line
+0 30000201 Code block for sampled line (depth 1)
+VALUES
+0 End
+1 0 (Unresolved)
+2 0 (_NOT_Found)
+3 1294 (backend.cpp, libiomp5.so)
+4 1332 (backend.cpp, libiomp5.so)
+5 140 (backref.cpp, libiomp5.so)
+6 0 (bsearch.c, ld-2.12.so)
+7 0 (dl-lookup.c, ld-2.12.so)
+8 229 (f_wrappers.c, perfTest)
+9 391 (f_wrappers.c, perfTest)
+10 0 (for_lub_mgt.c, perfTest)
+11 213 (frontend.cpp, libiomp5.so)
+12 1073 (frontend.cpp, libiomp5.so)
+13 2457 (frontend.cpp, libiomp5.so)
+14 2465 (frontend.cpp, libiomp5.so)
+15 2801 (frontend.cpp, libiomp5.so)
+16 2807 (frontend.cpp, libiomp5.so)
+17 262 (gptl.c, perfTest)
+18 387 (gptl.c, perfTest)
+19 416 (gptl.c, perfTest)
+20 859 (gptl.c, perfTest)
+21 1434 (gptl.c, perfTest)
+22 1479 (gptl.c, perfTest)
+23 1674 (gptl.c, perfTest)
+24 2732 (gptl.c, perfTest)
+25 3348 (gptl.c, perfTest)
+26 3997 (gptl.c, perfTest)
+27 4009 (gptl.c, perfTest)
+28 4273 (gptl.c, perfTest)
+29 0 (ia32_addsubq.c, perfTest)
+30 0 (interp.c, libpthread-2.12.so)
+31 0 (interp_m.._mod.F90) [0 (interp_movie_mod.F90, perfTest)]
+32 573 (ittnotif..static.c) [573 (ittnotify_static.c, libiomp5.so)]
+33 137 (ittnotif..static.h) [137 (ittnotify_static.h, libiomp5.so)]
+34 2976 (kmp.h, libiomp5.so)
+35 2978 (kmp.h, libiomp5.so)
+36 246 (kmp_affinity.cpp, libiomp5.so)
+37 1356 (kmp_affinity.cpp, libiomp5.so)
+38 1635 (kmp_affinity.cpp, libiomp5.so)
+39 2827 (kmp_affinity.cpp, libiomp5.so)
+40 3496 (kmp_affinity.cpp, libiomp5.so)
+41 3536 (kmp_affinity.cpp, libiomp5.so)
+42 4069 (kmp_affinity.cpp, libiomp5.so)
+43 1789 (kmp_alloc.c, libiomp5.so)
+44 2157 (kmp_alloc.c, libiomp5.so)
+45 1333 (kmp_barrier.cpp, libiomp5.so)
+46 1337 (kmp_barrier.cpp, libiomp5.so)
+47 1339 (kmp_barrier.cpp, libiomp5.so)
+48 188 (kmp_csupport.c, libiomp5.so)
+49 614 (kmp_csupport.c, libiomp5.so)
+50 694 (kmp_csupport.c, libiomp5.so)
+51 718 (kmp_csupport.c, libiomp5.so)
+52 730 (kmp_csupport.c, libiomp5.so)
+53 786 (kmp_csupport.c, libiomp5.so)
+54 232 (kmp_environment.c, libiomp5.so)
+55 426 (kmp_ftn_entry.h, libiomp5.so)
+56 444 (kmp_ftn_entry.h, libiomp5.so)
+57 445 (kmp_ftn_entry.h, libiomp5.so)
+58 551 (kmp_ftn_entry.h, libiomp5.so)
+59 557 (kmp_ftn_entry.h, libiomp5.so)
+60 566 (kmp_ftn_entry.h, libiomp5.so)
+61 784 (kmp_lock.cpp, libiomp5.so)
+62 1420 (kmp_lock.cpp, libiomp5.so)
+63 250 (kmp_runtime.c, libiomp5.so)
+64 253 (kmp_runtime.c, libiomp5.so)
+65 257 (kmp_runtime.c, libiomp5.so)
+66 259 (kmp_runtime.c, libiomp5.so)
+67 287 (kmp_runtime.c, libiomp5.so)
+68 1404 (kmp_runtime.c, libiomp5.so)
+69 1412 (kmp_runtime.c, libiomp5.so)
+70 1620 (kmp_runtime.c, libiomp5.so)
+71 1915 (kmp_runtime.c, libiomp5.so)
+72 3838 (kmp_runtime.c, libiomp5.so)
+73 4980 (kmp_runtime.c, libiomp5.so)
+74 4984 (kmp_runtime.c, libiomp5.so)
+75 5306 (kmp_runtime.c, libiomp5.so)
+76 6337 (kmp_runtime.c, libiomp5.so)
+77 6524 (kmp_runtime.c, libiomp5.so)
+78 779 (kmp_sched.cpp, libiomp5.so)
+79 782 (kmp_sched.cpp, libiomp5.so)
+80 134 (kmp_settings.c, libiomp5.so)
+81 919 (kmp_settings.c, libiomp5.so)
+82 934 (kmp_settings.c, libiomp5.so)
+83 2136 (kmp_settings.c, libiomp5.so)
+84 2144 (kmp_settings.c, libiomp5.so)
+85 4807 (kmp_settings.c, libiomp5.so)
+86 4818 (kmp_settings.c, libiomp5.so)
+87 4826 (kmp_settings.c, libiomp5.so)
+88 4832 (kmp_settings.c, libiomp5.so)
+89 5031 (kmp_settings.c, libiomp5.so)
+90 5173 (kmp_settings.c, libiomp5.so)
+91 277 (kmp_str.c, libiomp5.so)
+92 510 (kmp_str.c, libiomp5.so)
+93 397 (kmp_tasking.c, libiomp5.so)
+94 840 (kmp_tasking.c, libiomp5.so)
+95 159 (kmp_utility.c, libiomp5.so)
+96 69 (lapi_dispatcher.c, libpami.so)
+97 79 (lapi_dispatcher.c, libpami.so)
+98 264 (large_objects.cpp, libiomp5.so)
+99 822 (large_objects.cpp, libiomp5.so)
+100 0 (malloc.c, libc-2.12.so)
+101 324 (mem_prim..es_lib.c) [324 (mem_primitives_lib.c, libiomp5.so)]
+102 377 (mem_prim..es_lib.c) [377 (mem_primitives_lib.c, libiomp5.so)]
+103 234 (mpi_inte..coll_f.c) [234 (mpi_interface_coll_f.c, libmpitracef-3.3.0.so)]
+104 430 (mpi_inte..coll_f.c) [430 (mpi_interface_coll_f.c, libmpitracef-3.3.0.so)]
+105 319 (mpi_inte.._p2p_f.c) [319 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+106 323 (mpi_inte.._p2p_f.c) [323 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+107 326 (mpi_inte.._p2p_f.c) [326 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+108 459 (mpi_inte.._p2p_f.c) [459 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+109 463 (mpi_inte.._p2p_f.c) [463 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+110 466 (mpi_inte.._p2p_f.c) [466 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+111 729 (mpi_inte.._p2p_f.c) [729 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+112 85 (strnlen_s.c, libiomp5.so)
+113 78 (threadid.c, libmpitracef-3.3.0.so)
+114 2395 (wrapper.c, libmpitracef-3.3.0.so)
+115 696 (z_Linux_util.c, libiomp5.so)
+116 1468 (z_Linux_util.c, libiomp5.so)
+117 1614 (z_Linux_util.c, libiomp5.so)
+118 1937 (z_Linux_util.c, libiomp5.so)
+119 2009 (z_Linux_util.c, libiomp5.so)
+120 2129 (z_Linux_util.c, libiomp5.so)
+121 2144 (z_Linux_util.c, libiomp5.so)
+
+
+EVENT_TYPE
+0 600000000 Folded phase
+
+EVENT_TYPE
+0 630000000 Folded sampling caller level 0
+0 631000000 Folded sampling reverse caller level 0
+0 630000001 Folded sampling caller level 1
+0 631000001 Folded sampling reverse caller level 1
+0 630000002 Folded sampling caller level 2
+0 631000002 Folded sampling reverse caller level 2
+0 630000003 Folded sampling caller level 3
+0 631000003 Folded sampling reverse caller level 3
+0 600000004 Folded processed caller 
+VALUES
+0 End
+1 Unresolved
+2 _NOT_Found
+3 process_..ting_lub [process_existing_lub]
+4 strcmp
+5 __kmp_it..init_3_0 [__kmp_itt_fsync_acquired_init_3_0]
+6 __kmp_re.._startup [__kmp_register_library_startup]
+7 __kmp_str_format
+8 rml::int..::TLSKey [rml::internal::TLSKey::TLSKey]
+9 rml::int..rUseList [rml::internal::BackRefMaster::addToForUseList]
+10 rml::int..olMalloc [rml::internal::internalPoolMalloc]
+11 strnlen_s
+12 scalable_free
+13 __kmp_st..uf_print [__kmp_str_buf_print]
+14 __kmp_stg_cmp
+15 __kmp_stg_find
+16 __kmp_st..tacksize [__kmp_stg_parse_stacksize]
+17 __kmp_match_str
+18 __kmp_re..ter_root [__kmp_register_root]
+19 __kmp_al..ate_team [__kmp_allocate_team]
+20 __kmp_in..cit_task [__kmp_init_implicit_task]
+21 __kmp_in..t_memory [__kmp_initialize_fast_memory]
+22 __kmp_se..ack_info [__kmp_set_stack_info]
+23 __kmp_in.._signals [__kmp_install_signals]
+24 __kmp_af..itialize [__kmp_affinity_initialize]
+25 __kmp_au..itialize [__kmp_aux_affinity_initialize]
+26 __kmp_af..ild_nums [__kmp_affinity_assign_child_nums]
+27 __kmp_af..proclist [__kmp_affinity_process_proclist]
+28 GPTLenable
+29 GPTLsetutr
+30 __kmp_ap..read_num [__kmp_api_omp_get_thread_num]
+31 __kmp_se..parallel [__kmp_serialized_parallel]
+32 __kmpc_f..c_init_4 [__kmpc_for_static_init_4]
+33 GPTLstopf
+34 __open_nocancel
+35 subq_abs.L
+36 __kmp_ge..d_id_reg [__kmp_get_global_thread_id_reg]
+37 Backend_..entation [Backend_setInInstrumentation]
+38 gptlpr_q..y_write_ [gptlpr_query_write_]
+39 _int_free
+40 cmp
+41 __kmp_env_set
+42 __kmp_query_cpuid
+43 __kmp_en..itialize [__kmp_env_initialize]
+44 rml::int..erator() [rml::internal::LargeObjectCacheImpl<rml::internal::LargeObjectCacheProps<8192ul, 8388608ul, 8192u, 2, 2, 16> >::CacheBin::CacheBinFunctor::operator()]
+45 __kmp_pa..nity_env [__kmp_parse_affinity_env]
+46 __kmp_barrier
+47 GPTLsetoption
+48 GPTLinitialize
+49 GPTLstartf
+50 __kmp_po..m_thread [__kmp_pop_current_task_from_thread]
+51 __kmp_ap..arallel_ [__kmp_api_omp_in_parallel_]
+52 mpi_irecv
+53 mpi_allgather
+54 __kmp_ac..ket_lock [__kmp_acquire_ticket_lock]
+55 __kmp_do..itialize [__kmp_do_serial_initialize]
+56 rml::int..ol::init [rml::internal::ExtMemoryPool::init]
+57 rml::int..ewRegion [rml::internal::Backend::addNewRegion]
+58 __kmp_ru..itialize [__kmp_runtime_initialize]
+59 mem_prim_move
+60 ___kmp_allocate
+61 gptlenable_
+62 __kmpc_end_master
+63 init_gettimeofday
+64 interp_m..odof_..0 [interp_movie_mod_mp_getiodof_..0]
+65 GPTLpr_s..ary_file [GPTLpr_summary_file]
+66 scalable_malloc
+67 __kmp_ac..ing_lock [__kmp_acquire_queuing_lock]
+68 __kmpc_e..parallel [__kmpc_end_serialized_parallel]
+69 __kmp_it..init_3_0 [__kmp_itt_thread_set_name_init_3_0]
+70 __kmp_af..icid_map [__kmp_affinity_create_x2apicid_map]
+71 __kmp_fork_call
+72 __kmp_re..tem_time [__kmp_read_system_time]
+73 __kmp_gt..specific [__kmp_gtid_set_specific]
+74 __kmpc_barrier
+75 mpi_isend
+76 rml::int..ootstrap [rml::internal::Backend::bootstrap]
+77 __kmpc_master
+78 __kmpc_ok_to_fork
+79 mpi_allreduce
+80 __kmp_re..r_atfork [__kmp_register_atfork]
+81 __kmp_en..y_thread [__kmp_entry_thread]
+82 __kmp_stg_parse
+83 getentryf
+84 Extrae_g..d_number [Extrae_get_thread_number]
+85 mpi_waitall
+86 rml::int..geObject [rml::internal::ExtMemoryPool::mallocLargeObject]
+87 do_lookup_x
+88 _lapi_di..r<false> [_lapi_dispatcher<false>]
+
+
+EVENT_TYPE
+0 630000100 Folded sampling caller line level 0
+0 631000100 Folded sampling reverse caller line level 0
+0 630000101 Folded sampling caller line level 1
+0 631000101 Folded sampling reverse caller line level 1
+0 630000102 Folded sampling caller line level 2
+0 631000102 Folded sampling reverse caller line level 2
+0 630000103 Folded sampling caller line level 3
+0 631000103 Folded sampling reverse caller line level 3
+0 600000005 Folded processed caller line
+VALUES
+0 End
+1 0 (Unresolved)
+2 0 (_NOT_Found)
+3 1294 (backend.cpp, libiomp5.so)
+4 1332 (backend.cpp, libiomp5.so)
+5 140 (backref.cpp, libiomp5.so)
+6 0 (bsearch.c, ld-2.12.so)
+7 0 (dl-lookup.c, ld-2.12.so)
+8 229 (f_wrappers.c, perfTest)
+9 391 (f_wrappers.c, perfTest)
+10 0 (for_lub_mgt.c, perfTest)
+11 213 (frontend.cpp, libiomp5.so)
+12 1073 (frontend.cpp, libiomp5.so)
+13 2457 (frontend.cpp, libiomp5.so)
+14 2465 (frontend.cpp, libiomp5.so)
+15 2801 (frontend.cpp, libiomp5.so)
+16 2807 (frontend.cpp, libiomp5.so)
+17 262 (gptl.c, perfTest)
+18 387 (gptl.c, perfTest)
+19 416 (gptl.c, perfTest)
+20 859 (gptl.c, perfTest)
+21 1434 (gptl.c, perfTest)
+22 1479 (gptl.c, perfTest)
+23 1674 (gptl.c, perfTest)
+24 2732 (gptl.c, perfTest)
+25 3348 (gptl.c, perfTest)
+26 3997 (gptl.c, perfTest)
+27 4009 (gptl.c, perfTest)
+28 4273 (gptl.c, perfTest)
+29 0 (ia32_addsubq.c, perfTest)
+30 0 (interp.c, libpthread-2.12.so)
+31 0 (interp_m.._mod.F90) [0 (interp_movie_mod.F90, perfTest)]
+32 573 (ittnotif..static.c) [573 (ittnotify_static.c, libiomp5.so)]
+33 137 (ittnotif..static.h) [137 (ittnotify_static.h, libiomp5.so)]
+34 2976 (kmp.h, libiomp5.so)
+35 2978 (kmp.h, libiomp5.so)
+36 246 (kmp_affinity.cpp, libiomp5.so)
+37 1356 (kmp_affinity.cpp, libiomp5.so)
+38 1635 (kmp_affinity.cpp, libiomp5.so)
+39 2827 (kmp_affinity.cpp, libiomp5.so)
+40 3496 (kmp_affinity.cpp, libiomp5.so)
+41 3536 (kmp_affinity.cpp, libiomp5.so)
+42 4069 (kmp_affinity.cpp, libiomp5.so)
+43 1789 (kmp_alloc.c, libiomp5.so)
+44 2157 (kmp_alloc.c, libiomp5.so)
+45 1333 (kmp_barrier.cpp, libiomp5.so)
+46 1337 (kmp_barrier.cpp, libiomp5.so)
+47 1339 (kmp_barrier.cpp, libiomp5.so)
+48 188 (kmp_csupport.c, libiomp5.so)
+49 614 (kmp_csupport.c, libiomp5.so)
+50 694 (kmp_csupport.c, libiomp5.so)
+51 718 (kmp_csupport.c, libiomp5.so)
+52 730 (kmp_csupport.c, libiomp5.so)
+53 786 (kmp_csupport.c, libiomp5.so)
+54 232 (kmp_environment.c, libiomp5.so)
+55 426 (kmp_ftn_entry.h, libiomp5.so)
+56 444 (kmp_ftn_entry.h, libiomp5.so)
+57 445 (kmp_ftn_entry.h, libiomp5.so)
+58 551 (kmp_ftn_entry.h, libiomp5.so)
+59 557 (kmp_ftn_entry.h, libiomp5.so)
+60 566 (kmp_ftn_entry.h, libiomp5.so)
+61 784 (kmp_lock.cpp, libiomp5.so)
+62 1420 (kmp_lock.cpp, libiomp5.so)
+63 250 (kmp_runtime.c, libiomp5.so)
+64 253 (kmp_runtime.c, libiomp5.so)
+65 257 (kmp_runtime.c, libiomp5.so)
+66 259 (kmp_runtime.c, libiomp5.so)
+67 287 (kmp_runtime.c, libiomp5.so)
+68 1404 (kmp_runtime.c, libiomp5.so)
+69 1412 (kmp_runtime.c, libiomp5.so)
+70 1620 (kmp_runtime.c, libiomp5.so)
+71 1915 (kmp_runtime.c, libiomp5.so)
+72 3838 (kmp_runtime.c, libiomp5.so)
+73 4980 (kmp_runtime.c, libiomp5.so)
+74 4984 (kmp_runtime.c, libiomp5.so)
+75 5306 (kmp_runtime.c, libiomp5.so)
+76 6337 (kmp_runtime.c, libiomp5.so)
+77 6524 (kmp_runtime.c, libiomp5.so)
+78 779 (kmp_sched.cpp, libiomp5.so)
+79 782 (kmp_sched.cpp, libiomp5.so)
+80 134 (kmp_settings.c, libiomp5.so)
+81 919 (kmp_settings.c, libiomp5.so)
+82 934 (kmp_settings.c, libiomp5.so)
+83 2136 (kmp_settings.c, libiomp5.so)
+84 2144 (kmp_settings.c, libiomp5.so)
+85 4807 (kmp_settings.c, libiomp5.so)
+86 4818 (kmp_settings.c, libiomp5.so)
+87 4826 (kmp_settings.c, libiomp5.so)
+88 4832 (kmp_settings.c, libiomp5.so)
+89 5031 (kmp_settings.c, libiomp5.so)
+90 5173 (kmp_settings.c, libiomp5.so)
+91 277 (kmp_str.c, libiomp5.so)
+92 510 (kmp_str.c, libiomp5.so)
+93 397 (kmp_tasking.c, libiomp5.so)
+94 840 (kmp_tasking.c, libiomp5.so)
+95 159 (kmp_utility.c, libiomp5.so)
+96 69 (lapi_dispatcher.c, libpami.so)
+97 79 (lapi_dispatcher.c, libpami.so)
+98 264 (large_objects.cpp, libiomp5.so)
+99 822 (large_objects.cpp, libiomp5.so)
+100 0 (malloc.c, libc-2.12.so)
+101 324 (mem_prim..es_lib.c) [324 (mem_primitives_lib.c, libiomp5.so)]
+102 377 (mem_prim..es_lib.c) [377 (mem_primitives_lib.c, libiomp5.so)]
+103 234 (mpi_inte..coll_f.c) [234 (mpi_interface_coll_f.c, libmpitracef-3.3.0.so)]
+104 430 (mpi_inte..coll_f.c) [430 (mpi_interface_coll_f.c, libmpitracef-3.3.0.so)]
+105 319 (mpi_inte.._p2p_f.c) [319 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+106 323 (mpi_inte.._p2p_f.c) [323 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+107 326 (mpi_inte.._p2p_f.c) [326 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+108 459 (mpi_inte.._p2p_f.c) [459 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+109 463 (mpi_inte.._p2p_f.c) [463 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+110 466 (mpi_inte.._p2p_f.c) [466 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+111 729 (mpi_inte.._p2p_f.c) [729 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+112 85 (strnlen_s.c, libiomp5.so)
+113 78 (threadid.c, libmpitracef-3.3.0.so)
+114 2395 (wrapper.c, libmpitracef-3.3.0.so)
+115 696 (z_Linux_util.c, libiomp5.so)
+116 1468 (z_Linux_util.c, libiomp5.so)
+117 1614 (z_Linux_util.c, libiomp5.so)
+118 1937 (z_Linux_util.c, libiomp5.so)
+119 2009 (z_Linux_util.c, libiomp5.so)
+120 2129 (z_Linux_util.c, libiomp5.so)
+121 2144 (z_Linux_util.c, libiomp5.so)
+
+
+EVENT_TYPE
+0 630000200 Folded sampling caller line AST level 0
+0 631000200 Folded sampling reverse caller line AST level 0
+0 630000201 Folded sampling caller line AST level 1
+0 631000201 Folded sampling reverse caller line AST level 1
+0 630000202 Folded sampling caller line AST level 2
+0 631000202 Folded sampling reverse caller line AST level 2
+0 630000203 Folded sampling caller line AST level 3
+0 631000203 Folded sampling reverse caller line AST level 3
+VALUES
+0 End
+1 0 (Unresolved)
+2 0 (_NOT_Found)
+3 1294 (backend.cpp, libiomp5.so)
+4 1332 (backend.cpp, libiomp5.so)
+5 140 (backref.cpp, libiomp5.so)
+6 0 (bsearch.c, ld-2.12.so)
+7 0 (dl-lookup.c, ld-2.12.so)
+8 229 (f_wrappers.c, perfTest)
+9 391 (f_wrappers.c, perfTest)
+10 0 (for_lub_mgt.c, perfTest)
+11 213 (frontend.cpp, libiomp5.so)
+12 1073 (frontend.cpp, libiomp5.so)
+13 2457 (frontend.cpp, libiomp5.so)
+14 2465 (frontend.cpp, libiomp5.so)
+15 2801 (frontend.cpp, libiomp5.so)
+16 2807 (frontend.cpp, libiomp5.so)
+17 262 (gptl.c, perfTest)
+18 387 (gptl.c, perfTest)
+19 416 (gptl.c, perfTest)
+20 859 (gptl.c, perfTest)
+21 1434 (gptl.c, perfTest)
+22 1479 (gptl.c, perfTest)
+23 1674 (gptl.c, perfTest)
+24 2732 (gptl.c, perfTest)
+25 3348 (gptl.c, perfTest)
+26 3997 (gptl.c, perfTest)
+27 4009 (gptl.c, perfTest)
+28 4273 (gptl.c, perfTest)
+29 0 (ia32_addsubq.c, perfTest)
+30 0 (interp.c, libpthread-2.12.so)
+31 0 (interp_m.._mod.F90) [0 (interp_movie_mod.F90, perfTest)]
+32 573 (ittnotif..static.c) [573 (ittnotify_static.c, libiomp5.so)]
+33 137 (ittnotif..static.h) [137 (ittnotify_static.h, libiomp5.so)]
+34 2976 (kmp.h, libiomp5.so)
+35 2978 (kmp.h, libiomp5.so)
+36 246 (kmp_affinity.cpp, libiomp5.so)
+37 1356 (kmp_affinity.cpp, libiomp5.so)
+38 1635 (kmp_affinity.cpp, libiomp5.so)
+39 2827 (kmp_affinity.cpp, libiomp5.so)
+40 3496 (kmp_affinity.cpp, libiomp5.so)
+41 3536 (kmp_affinity.cpp, libiomp5.so)
+42 4069 (kmp_affinity.cpp, libiomp5.so)
+43 1789 (kmp_alloc.c, libiomp5.so)
+44 2157 (kmp_alloc.c, libiomp5.so)
+45 1333 (kmp_barrier.cpp, libiomp5.so)
+46 1337 (kmp_barrier.cpp, libiomp5.so)
+47 1339 (kmp_barrier.cpp, libiomp5.so)
+48 188 (kmp_csupport.c, libiomp5.so)
+49 614 (kmp_csupport.c, libiomp5.so)
+50 694 (kmp_csupport.c, libiomp5.so)
+51 718 (kmp_csupport.c, libiomp5.so)
+52 730 (kmp_csupport.c, libiomp5.so)
+53 786 (kmp_csupport.c, libiomp5.so)
+54 232 (kmp_environment.c, libiomp5.so)
+55 426 (kmp_ftn_entry.h, libiomp5.so)
+56 444 (kmp_ftn_entry.h, libiomp5.so)
+57 445 (kmp_ftn_entry.h, libiomp5.so)
+58 551 (kmp_ftn_entry.h, libiomp5.so)
+59 557 (kmp_ftn_entry.h, libiomp5.so)
+60 566 (kmp_ftn_entry.h, libiomp5.so)
+61 784 (kmp_lock.cpp, libiomp5.so)
+62 1420 (kmp_lock.cpp, libiomp5.so)
+63 250 (kmp_runtime.c, libiomp5.so)
+64 253 (kmp_runtime.c, libiomp5.so)
+65 257 (kmp_runtime.c, libiomp5.so)
+66 259 (kmp_runtime.c, libiomp5.so)
+67 287 (kmp_runtime.c, libiomp5.so)
+68 1404 (kmp_runtime.c, libiomp5.so)
+69 1412 (kmp_runtime.c, libiomp5.so)
+70 1620 (kmp_runtime.c, libiomp5.so)
+71 1915 (kmp_runtime.c, libiomp5.so)
+72 3838 (kmp_runtime.c, libiomp5.so)
+73 4980 (kmp_runtime.c, libiomp5.so)
+74 4984 (kmp_runtime.c, libiomp5.so)
+75 5306 (kmp_runtime.c, libiomp5.so)
+76 6337 (kmp_runtime.c, libiomp5.so)
+77 6524 (kmp_runtime.c, libiomp5.so)
+78 779 (kmp_sched.cpp, libiomp5.so)
+79 782 (kmp_sched.cpp, libiomp5.so)
+80 134 (kmp_settings.c, libiomp5.so)
+81 919 (kmp_settings.c, libiomp5.so)
+82 934 (kmp_settings.c, libiomp5.so)
+83 2136 (kmp_settings.c, libiomp5.so)
+84 2144 (kmp_settings.c, libiomp5.so)
+85 4807 (kmp_settings.c, libiomp5.so)
+86 4818 (kmp_settings.c, libiomp5.so)
+87 4826 (kmp_settings.c, libiomp5.so)
+88 4832 (kmp_settings.c, libiomp5.so)
+89 5031 (kmp_settings.c, libiomp5.so)
+90 5173 (kmp_settings.c, libiomp5.so)
+91 277 (kmp_str.c, libiomp5.so)
+92 510 (kmp_str.c, libiomp5.so)
+93 397 (kmp_tasking.c, libiomp5.so)
+94 840 (kmp_tasking.c, libiomp5.so)
+95 159 (kmp_utility.c, libiomp5.so)
+96 69 (lapi_dispatcher.c, libpami.so)
+97 79 (lapi_dispatcher.c, libpami.so)
+98 264 (large_objects.cpp, libiomp5.so)
+99 822 (large_objects.cpp, libiomp5.so)
+100 0 (malloc.c, libc-2.12.so)
+101 324 (mem_prim..es_lib.c) [324 (mem_primitives_lib.c, libiomp5.so)]
+102 377 (mem_prim..es_lib.c) [377 (mem_primitives_lib.c, libiomp5.so)]
+103 234 (mpi_inte..coll_f.c) [234 (mpi_interface_coll_f.c, libmpitracef-3.3.0.so)]
+104 430 (mpi_inte..coll_f.c) [430 (mpi_interface_coll_f.c, libmpitracef-3.3.0.so)]
+105 319 (mpi_inte.._p2p_f.c) [319 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+106 323 (mpi_inte.._p2p_f.c) [323 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+107 326 (mpi_inte.._p2p_f.c) [326 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+108 459 (mpi_inte.._p2p_f.c) [459 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+109 463 (mpi_inte.._p2p_f.c) [463 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+110 466 (mpi_inte.._p2p_f.c) [466 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+111 729 (mpi_inte.._p2p_f.c) [729 (mpi_interface_p2p_f.c, libmpitracef-3.3.0.so)]
+112 85 (strnlen_s.c, libiomp5.so)
+113 78 (threadid.c, libmpitracef-3.3.0.so)
+114 2395 (wrapper.c, libmpitracef-3.3.0.so)
+115 696 (z_Linux_util.c, libiomp5.so)
+116 1468 (z_Linux_util.c, libiomp5.so)
+117 1614 (z_Linux_util.c, libiomp5.so)
+118 1937 (z_Linux_util.c, libiomp5.so)
+119 2009 (z_Linux_util.c, libiomp5.so)
+120 2129 (z_Linux_util.c, libiomp5.so)
+121 2144 (z_Linux_util.c, libiomp5.so)
+
+
+EVENT_TYPE
+0 642000055 Folded PAPI_BR_INS
+0 642000104 Folded PAPI_DP_OPS
+0 642000000 Folded PAPI_L1_DCM
+0 642000002 Folded PAPI_L2_DCM
+0 642000008 Folded PAPI_L3_TCM
+0 642000053 Folded PAPI_LD_INS
+0 642000054 Folded PAPI_SR_INS
+0 642000020 Folded PAPI_TLB_DM
+0 642000059 Folded PAPI_TOT_CYC
+0 642000050 Folded PAPI_TOT_INS
+0 642000106 Folded PAPI_VEC_DP
+0 642001035 Folded RESOURCE_STALLS
+0 642001028 Folded SIMD_FP_256:PACKED_DOUBLE
+
