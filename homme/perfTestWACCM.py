@@ -18,7 +18,7 @@ for key in keys:
     times = {ipcc_fn:[], dungeon_fn:[]}
     total_t = {ipcc_fn:292.31, dungeon_fn:154.82}
     colors = {ipcc_fn:'b',dungeon_fn:'r'}
-    labels = {ipcc_fn:'ipcc', dungeon_fn:'dungeon'}
+    labels = {ipcc_fn:'orig', dungeon_fn:'opt'}
     linestyles = {ipcc_fn:'-.', dungeon_fn:'-'}
      
     files = [ipcc_fn, dungeon_fn]
@@ -49,7 +49,7 @@ for key in keys:
                      box.width, box.height * 0.9])
     ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.10),ncol=5, columnspacing=0.5, prop={'size':10})
     #plt.show()
-    fig.savefig(key+'.png')
+    fig.savefig(key+'.pdf',format='pdf')
 
 
 #for k in values.keys():
