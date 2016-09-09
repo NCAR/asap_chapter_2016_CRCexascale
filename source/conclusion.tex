@@ -1,0 +1,14 @@
+\section{Conclusions and future work}\label{sec:conclusion}
+
+We have describe the on-going work to prepare CESM to efficient utilize the first exascale 
+computing resources that will be deployed in the next two four to six years.  This preparation has taken 
+a three prong approach that include: refactoring the the dynamical core used by CESM for high-resolution 
+simulations to enable more parallelism, improving the efficiency of th existing physics code, and accelerating 
+the post-processing of output data using a parallel python approach.  Early results have demonstrated that
+such an approach is having a significant impact.  In particular refactoring of the spectral element dynamical core 
+has illustrated that it is possible to use 6 to 12 times the number of cores or the same computational cost on existing 
+hardware. We have also illustrated that these code modifications have speedup the execution of HOMME on a single Knights 
+Landing node by nearly a factor of 4.  Our work to reduce the cost for an implicit chemmistry solver has resulting in a 
+factor of ?? sppeedup on current generation Intel Xeon and a factor of ?? on Knights Landing.  Finally we have achieved 
+speedups that range from ?? to ?? for the post-processing.  While our current results are promissing, there remains 
+much work to done. {\color{red} [Need to say something about future work]}

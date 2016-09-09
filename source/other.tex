@@ -1,4 +1,4 @@
-\subsection{Other CAM modules [1 page, Kumar]}\label{sec:other}
+\subsection{Accelerating physics calculations}\label{sec:other}
 
 binterp is an interpolation routine used in CESM under the CAM module. binterp is a subroutine accepting a little more than ten arguments and has roughly a hundred lines of code including comments. The  lines of code included three doubly nested loop and several branching statements both within and outside the nested loops. Thus, the default execution on Sandybridge processor took about a few hundred nano seconds. Since the routine was called thousands of time, optimizing the kernel was essential.
 On profiling the code, it was observed that none of the loops vectorized due to branching statements within the loop. Moreover, more than 70\% of the execution was spent on one single nested for loop. This was because a) the nested loops didn't provision cache blocking and b) there were indexed look-up table reads. Steps adopted to optimize the code- a) the loops were refactored to separate the branches and to accommodate cache blocking, b) multiple look-up table reads of the same array variable were replaced with new copies that had coalesced access of elements. and c) additional flags/directives were added to align arrays and to force vectorization on the loops. 
@@ -18,3 +18,5 @@ For the compilation, additional flags/directives were added to align arrays, for
 The optimized radiation code, using intel 15.0.3 compiler and MKL 11.2.3, was found to provide 1.62x speedup on Sandybridge architecture. 
 
 The optimizations performed on these modules collectively reduced the cost of CAM by approximately 4.7\%. Estimating NCAR’s Yellowstone core-hour budget for CMIP6’s baseline experiments to be 600 MCPU-hrs, and that CAM itself represents about half of that cost, then these optimizations save roughly 14 MCPU-hrs in CMIP6 costs alone. 
+
+{\color{red} [Need to add material on implicit chemistry solver, Mickelson 1 paragraph]}

@@ -1,0 +1,33 @@
+\begin{table}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+\hline
+Property                   & Yellowstone &  HPCFL         & Carl           \\ \hline
+\# of nodes                &     4,356   &  1             &  {\color{red} ?8?}           \\ \hline
+processor type             & Intel Xeon  &  Intel Xeon    & Intel Xeon Phi  \\
+			   & E5-2670,    & {\color{red} E5-2698-V3,}    & 7250            \\
+                           & Sandybridge &  Haswell       & Knights Landing \\
+                           & (SNB)       &  (HSW)         & (KNL)           \\ \hline
+sockets per node           & 2           &   4            & 1               \\ \hline
+cores per socket           &  8          &   18           & 68             \\ \hline
+cores per node             & 16          &   72           & 68             \\ \hline
+total \# of cores          & 72,576      & 72             & 68             \\ \hline
+base frequency (GHz)       & 2.6         & {\color{red}?2.1?}          & 1.4             \\ \hline
+L1 D+I cache               & 32 + 32 KB  & 32 + 32 KB     & 32 + 32 KB     \\
+                           & per core    & per core       & per core    \\ \hline
+L2 cache                   & 256 KB      & 256 KB         & 1024 KB \\
+                           & per core    & per core       & shared by 2 cores \\ \hline
+L3 cache                   & 20 MB       & 45 MB          & none           \\
+                           & per socket  & per socket     &                \\ \hline
+DRAM per node              & 32 GB       & {\color{red} unknown}        & 96 GB          \\ \hline
+MCDRAM                     & none        & none           & 16 GB       \\
+                           &             &                & flat        \\ \hline
+RAM type                   & DDR3-1600   & {\color{red} unknown}        & DDR4-2133       \\ \hline
+Vector Length (bits)       & 256         & 256            & 512              \\ \hline
+fp vector units            & ?1?         & ?1?            & ?2?             \\ \hline 
+\hline
+\end{tabular}
+\caption{Computational platforms\label{tbl:platforms}.{\color{red} Red marked items need to be resolved, Kumar}}
+\label{tbl:platforms}
+\end{center}
+\end{table}

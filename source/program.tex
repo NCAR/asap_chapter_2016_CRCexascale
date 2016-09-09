@@ -1,8 +1,8 @@
-\section{Programming Approach [{\color{red}1 page, Dennis}]}\label{sec:program}
+\section{Programming Approach}\label{sec:program}
 
-The HOMME dynamical core is written in FORTRAN 90 and utilizes a hybrid (MPI-OpenMP) programming model.  Each side of the cubed-sphere computational grid, which is used by HOMME, is tiled with $NE \times NR$ spectral elements, resulting in a total number of spectral elements of $nelem = 6 \times NE \times NE$.  The total $nelem$ spectral elements are statically partitioning during initialization across either MPI tasks or OpenMP threads.  Historically, while it was technically possible to scale HOMME to core counts equal to the number of spectral elements {\em nelemd} it was, in practice, cost prohibitive.  Recent advances in the performance and scalability of the HOMME dynamical core has reduce its overall cost and has made it feasible to significantly increase the core count in which it can be run in production.  
+The HOMME dynamical core is written in FORTRAN 90 and utilizes a hybrid (MPI-OpenMP) programming model.  Each side of the cubed-sphere computational grid, which is used by HOMME, is tiled with $NE \times NE$ spectral elements, resulting in a total number of spectral elements of $nelem = 6 \times NE \times NE$.  The spectral elements are statically partitioning during initialization across either MPI tasks or OpenMP threads.  Historically, while it was technically possible to scale HOMME to core counts equal to the number of spectral elements {\em nelem} it was, in practice, cost prohibitive.  Recent advances in the performance and scalability of the HOMME dynamical core has reduce its overall cost and has made it feasible to significantly increase the core count in which it can be run in production.  
 
-
+{\color{red}  Material is totally out of place}
 \begin{itemize}
    \item Threading memory copy in boundary exchange [PARALLEL]
    \item Restructured data-structures for vectorization [SERIAL]
@@ -18,7 +18,38 @@ The HOMME dynamical core is written in FORTRAN 90 and utilizes a hybrid (MPI-Ope
 %Since HOMME undergoes rapid evolution, implementation of optimization and parallelization changes needs to co-exist with other code modifications. Development for different architectures would require significant changes and produce multiple code versions which would be difficult to maintain. We have therefore chosen to develop a single unified version of HOMME for the Intel x86 architecture.   All computations are performed with 64 Byte reals and 32 Byte integers. 
 
 
-\subsubsection{Single-core Optimizations}
+
+\subsection{Parallelization Strategy}
+
+The original scheme used parallelization over elements at a high-level and parallelization over loops at lower-levels. The revised scheme uses the same high-level parallelization over elements, however, the lower-loop level parallelization has been replaced with a high-level parallelization over the vertical level and tracers dimensions. The dimension chosen to parallelize is dependent on the region (dynamics, tracer advection, dissipation, or vertical remapping) of the code.
+
+The revised scheme has several improvements over the original approach. These improvements include: a significant reduction in the number of threaded regions created; allows a greater number of threads to be assigned; allows replacement of MPI-Ranks with OpenMP threads which reduces the total MPI communication; provides greater flexibility in determining where the threads are assigned in the regions of the code; simplifies the scoping of variables in the parallel region as variables local to the routines, inside the parallel region, are private; minimizes wastage of thread resources as the parallelized over the vertical level and tracer blocks do not overlap so threads can be shared between these regions
+
+The revised parallelization structure of HOMME is shown in Figure \ref{fig:homme-alg}. Elements within the global domain are initially assigned with MPI-Ranks. Within the time loop, we maintain the original parallel structure over elements. The dynamics driver calls the dynamics, tracers, dissipation, and vertical remapping modules. These are parallelized over tracers or vertical levels; the blocking scheme chosen was dependent on the parallelism available in the module. In the dynamics, tracer and vertical remap modules, the code is blocked over tracers and in the dissipation module the code is blocked over the vertical levels. The only component module where we have maintained the original loop level-parallelism is in the 'compute\_and\_apply\_rhs' module as dependencies in the vertical prevent blocking over levels. 
+The code changes needed to implement the revised parallelization strategy were extensive. However, they could be made systematically which simplified the implementation process. Invocation of the blocked regions dynamics, tracers, dissipation, and vertical remap can be understood with a simple example:
+
+\begin{verbatim}
+  call omp_nested(.true.)
+  !$OMP PARALLEL NUM_THREADS (num_threads_region) & 
+  !$OMP& DEFAULT(SHARED), PRIVATE(hybrid_region)
+    hybridreg = config_thread_region(hybrid, regtype)
+    call foo (hybridreg, ...)
+  !$OMP END PARALLEL
+  call omp_nested(.false.)
+
+  subroutine foo (hybridreg, ...)
+      call get_loop_ranges (hybridreg, lbeg, lend)
+  end subroutine foo	
+
+\end{verbatim}
+
+Where the variable 'regtype' is name of the parallelism implemented in the module (element, level or tracer); 'hybridreg' is a derived type that contains the mapping from the thread number to the starting and ending indices for each 'regtype'; 'Äú`num\_threads\_region"Äù is the number of threads assigned in the 'regtype'.
+
+The declaration of the number of MPI-Ranks and OpenMP threads for the elements, tracer, and vertical is performed at run-time. The design of HOMME with inner indices (np,np) are known at compile-time which allows the compiler to generate efficient vectorized code with the limitations described in Section {\color{red} ??}. The specification of the number of levels and tracers are made at run-time without impacting performance.
+
+
+
+\subsection{Single-core Optimizations}
 
 The single-core performance optimizations implemented included improving: vectorization, data locality, minimize computations, and compile-time specifications for loop and array bounds \cite{henderson:2015}. Each of these techniques has contributed to the overall single-core performance improvements in the code. The overall results of these optimizations are discussed in Section \ref{sec:homme-results}.
 
@@ -28,40 +59,7 @@ The use of function statements throughout the code does impact performance. When
 
 Finally, the compiler reports, provide information on details of alignment of data for each vectorized loop. Where the data was not aligned, the compiler flag (-align arraybyte64) and the OpenMP aligned directive does force data alignment. However, the directive is cumbersome to create for complex loop as all unaligned variables need to be defined in the aligned list. This creates a maintainability issue; there are also issues when alignment is forced as it can lead to incorrect answers. For these reasons, we have avoided forcing data alignment in the code.
 
-\subsubsection{Parallelization Strategy}
-
-The original scheme used parallelization over elements at a high-level and parallelization over loops at lower-levels. The revised scheme uses the same high-level parallelization over elements, however, the lower-loop level parallelization has been replaced with a high-level parallelization over the vertical level and tracers dimensions. The dimension chosen to parallelize is dependent on the region (dynamics, tracer advection, dissipation, or vertical remapping) of the code.
-
-The revised scheme has several improvements over the original approach. These improvements include: a significant reduction in the number of threaded regions created; allows a greater number of threads to be assigned; allows replacement of MPI-Ranks with OpenMP threads which reduces the total MPI communication; provides greater flexibility in determining where the threads are assigned in the regions of the code; simplifies the scoping of variables in the parallel region as variables local to the routines, inside the parallel region, are private; minimizes wastage of thread resources as the parallelized over the vertical level and tracer blocks do not overlap so threads can be shared between these regions
-
-
-
-The revised parallelization structure of HOMME is shown in Figure \ref{fig:homme-alg}. Elements within the global domain are initially assigned with MPI-Ranks. Within the time loop, we maintain the original parallel structure over elements. The dynamics driver calls the dynamics, tracers, dissipation, and vertical remapping modules. These are parallelized over tracers or vertical levels; the blocking scheme chosen was dependent on the parallelism available in the module. In the dynamics, tracer and vertical remap modules, the code is blocked over tracers and in the dissipation module the code is blocked over the vertical levels. The only component module where we have maintained the original loop level-parallelism is in the 'compute\_and\_apply\_rhs' module as dependencies in the vertical prevent blocking over levels. 
-The code changes needed to implement the revised parallelization strategy were extensive. However, they could be made systematically which simplified the implementation process. Invocation of the blocked regions dynamics, tracers, dissipation, and vertical remap can be understood with a simple example:
-
-\begin{verbatim}
-  call omp_nested(.true.)
-  !$OMP PARALLEL NUM_THREADS (num_threads_region) & 
-  !$OMP& DEFAULT(SHARED), PRIVATE(hybrid_region)
-    hybrid_region = config_thread_region(hybrid, region_type)
-    call foo (hybrid_region, ...)
-  !$OMP END PARALLEL
-  call omp_nested(.false.)
-
-  subroutine foo (hybrid_region, ...)
-      call get_loop_ranges (hybrid_region, loop_beg, loop_end)
-  end subroutine foo	
-
-\end{verbatim}
-
-Where the variable 'region\_type' is name of the parallelism implemented in the module (element, level or tracer); 'hybrid\_region' is a derived type that contains the mapping from the thread number to the starting and ending indices for each 'region\_type'; 'Äú`num\_threads\_region"Äù is the number of threads assigned in the 'region\_type'.
-
-The declaration of the number of MPI-Ranks and OpenMP threads for the elements, tracer, and vertical is performed at run-time. The design of HOMME with inner indices (np,np) are known at compile-time which allows the compiler to generate efficient vectorized code with the limitations described in Section {\color{red} ??}. The specification of the number of levels and tracers are made at run-time without impacting performance.
-
-
-\subsubsection{Data and Loop Structures}
-
-
+\subsection{Data and Loop Structures}
 
 The data structures are dynamically allocated and maintain a global index within each MPI-Rank.  Allocation of a generalized variable has the following ordering convention:
 
@@ -96,7 +94,7 @@ Prior to the blocked implementation, the loop bounds in the code, were written:
 \begin{verbatim}
   do q=1,ntracer
      do k=1,nlevel
-        variable_name(1:np,1:np,k,q,ie) = ‚Ä¶
+        variable_name(1:np,1:np,k,q,ie) = ...
      enddo
   enddo
 \end{verbatim}
