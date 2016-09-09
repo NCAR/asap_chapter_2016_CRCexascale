@@ -1,4 +1,4 @@
-\section{Programming Approach [{\color{red}1 page, Dennis}]}\label{sec:programming}
+\section{Programming Approach [{\color{red}1 page, Dennis}]}\label{sec:program}
 
 The HOMME dynamical core is written in FORTRAN 90 and utilizes a hybrid (MPI-OpenMP) programming model.  Each side of the cubed-sphere computational grid, which is used by HOMME, is tiled with $NE \times NR$ spectral elements, resulting in a total number of spectral elements of $nelem = 6 \times NE \times NE$.  The total $nelem$ spectral elements are statically partitioning during initialization across either MPI tasks or OpenMP threads.  Historically, while it was technically possible to scale HOMME to core counts equal to the number of spectral elements {\em nelemd} it was, in practice, cost prohibitive.  Recent advances in the performance and scalability of the HOMME dynamical core has reduce its overall cost and has made it feasible to significantly increase the core count in which it can be run in production.  
 
@@ -20,7 +20,7 @@ The HOMME dynamical core is written in FORTRAN 90 and utilizes a hybrid (MPI-Ope
 
 \subsubsection{Single-core Optimizations}
 
-The single-core performance optimizations implemented included improving: vectorization, data locality, minimize computations, and compile-time specifications for loop and array bounds \cite{henderson:2015}. Each of these techniques has contributed to the overall single-core performance improvements in the code. The overall results of these optimizations are discussed in Section \ref{sec:homie-results}.
+The single-core performance optimizations implemented included improving: vectorization, data locality, minimize computations, and compile-time specifications for loop and array bounds \cite{henderson:2015}. Each of these techniques has contributed to the overall single-core performance improvements in the code. The overall results of these optimizations are discussed in Section \ref{sec:homme-results}.
 
 The software design approach used in HOMME inhibited some optimizations techniques. The inner-loops, details of which are described below are written as (np,np) were collapsed and vectorized, but the loop index was not linearized as the compiler generates gather and scatters and not unit stride loads and stores. As the number of vector-registers on the AVX2 and AVX-512 has increased linearizion of the loop indices to generate longer vectors becomes of significant importance to performance.
 
