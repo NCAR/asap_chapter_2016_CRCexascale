@@ -1,7 +1,7 @@
 
 \section{Case study: dynamical core}\label{sec:case1}
 
-Our first case study focuses on CAM's spectral element dynamical core, known as HOMME (High-Order Method Modeling Environment) /cite{dennis:2012}, which is the default dynamical core for CAM for very high $1/4^\circ$ resolution simulations.  We focus on HOMME
+Our first case study focuses on CAM's spectral element dynamical core, known as HOMME (High-Order Method Modeling Environment) \cite{dennis:2012}, which is the default dynamical core for CAM for very high $1/4^\circ$ resolution simulations.  We focus on HOMME
 because the dynamical core can consume 30-88\% of the total cost of the CAM and is particularly influential in the overall scalability of CAM and,  therefore, CESM (e.g., {\color{red}CITATION}).  We first provide more information on the HOMME dynamical core and then detail several modifications aimed at exascale.
 
 \subsection{Algorithm details}
@@ -18,9 +18,14 @@ HOMME solves these equations in a time-split fully-explicit form. For time-steps
 \label{fig:homme-alg}
 \end{figure}
 
-As with the rest of CESM, the HOMME dynamical core is written in FORTRAN 90 and utilizes a hybrid (MPI-OpenMP) programming model.  Each side of the cubed-sphere computational grid is tiled with $NE \times NE$ spectral elements, resulting in a total number of spectral elements of $nelem = 6 \times NE \times NE$.  The spectral elements are statically partitioning during initialization across either MPI tasks or OpenMP threads.  The performance of HOMME is strongly influenced by the number of spectral elements allocated to each hardware core.  The total number of spectral elements for a particular cubed-sphere grid is calculated by the formula $nelem= 6 NE^2$, where {\em nelem} is the total number of elements.  For reference, the 1/4 degree simulation in \cite{small2014}, corresponding to $NE=120$ or $nelem=86,600$), used a total of 21,600 hardware cores which resulted in the assignment of 4 elements per core.  Note that historically, while it was technically possible to scale HOMME to core counts equal to the number of spectral elements {\em nelem} it was, in practice, cost prohibitive.
+As with the rest of CESM, the HOMME dynamical core is written in FORTRAN 90 and utilizes a hybrid (MPI-OpenMP) programming model.  The resolution of HOMME's cubed-sphere computational grid is indicated by the number of spectral elements on a side of a cube ($ne$). In particular, each side of the cubed-sphere computational grid is tiled with $ne \times ne$ spectral elements, resulting in a total number of spectral elements of $nelem = 6 \times ne \times ne$, where {\em nelem} is the total number of elements.  For reference, CAM is typically run in production at $ne=30$, which roughly corresponds to 1-degree resolution with grid points approximately every 100 km.  High resolution simulations at quarter-degree resolution (i.e., $ne=120$) with grid points approximately every 25 km, such as the simulation in \cite{small2014}, typically require very large core counts for an extended periods of time.  
+The spectral elements are statically partitioning during initialization across either MPI tasks or OpenMP threads. 
+Note that the simulation in \cite{small2014}, corresponding to $ne=120$ and $nelem=86,600$, used a total of 21,600 hardware cores which resulted in the assignment of 4 elements per core.
+The performance of HOMME is strongly influenced by the number of spectral elements allocated to each hardware core, and historically, while it was technically possible to scale HOMME to core counts equal to the number of spectral elements {\em nelem} it was, in practice, cost prohibitive.
 
-%Recent advances in the performance and scalability of the HOMME dynamical core has reduce its overall cost and has made it feasible to significantly increase the core count in which it can be run in production.  
+
+[{\color{red} What CESM/CAM/HOMME version(s)?.}]
+
 
 \subsection{Revised parallelization strategy}
 
@@ -57,7 +62,7 @@ Where the variable 'regtype' is name of the parallelism implemented in the modul
 
 The declaration of the number of MPI-Ranks and OpenMP threads for the elements, tracer, and vertical is performed at run-time. The design of HOMME with inner indices (np,np) are known at compile-time which allows the compiler to generate efficient vectorized code with the limitations described in Section {\color{red} ??}. The specification of the number of levels and tracers are made at run-time without impacting performance.
 
-\subsection{Single-core Optimizations}
+\subsection{Single-core optimization}
 
 [{\color{red} better transition here}] A second aspect of HOMME that clearly needed optimizing
 based on performance analysis was ...
@@ -71,7 +76,7 @@ The use of function statements throughout the code does impact performance. When
 
 Finally, the compiler reports, provide information on details of alignment of data for each vectorized loop. Where the data was not aligned, the compiler flag (-align arraybyte64) and the OpenMP aligned directive does force data alignment. However, the directive is cumbersome to create for complex loop as all unaligned variables need to be defined in the aligned list. This creates a maintainability issue; there are also issues when alignment is forced as it can lead to incorrect answers. For these reasons, we have avoided forcing data alignment in the code.
 
-\subsection{Data and Loop Structures}
+\subsection{Data and loop structures}
 
 
 [{\color{red} better transition here}] Next, we looked at .... because ....
@@ -119,7 +124,7 @@ A significant number of code changes were needed to create the blocked implement
 
 \subsection{Other modifications}
 
-Clearly HOMME has received much of our attention and many modifications have been implemented to improve its performance for exascale. Here we note that in addition to those improvements detailed in the subsequent three subsections, additional modifications contribute to the improved performance shown in Section [BLAH].  For brevity, we simply list
+Clearly HOMME has received much of our attention and many modifications have been implemented to improve its performance for exascale. Here we note that in addition to those improvements detailed in the subsequent three subsections, additional modifications contribute to the improved performance shown in Section \ref{sec:bench}.  For brevity, we simply list
 the additional modifications here:
 
 {\color{red} Fix bullets so that they are two or three sentences long - so slightly more info for reader. Remove any already discussed above.}
@@ -133,3 +138,8 @@ the additional modifications here:
    \item Rewrote and optimized limiter [SERIAL]
    \item Redesigned the OpenMP threading [PARALLEL]
 \end{itemize}
+
+
+\subsection{Benchmarking results}\label{sec:bench}
+
+\input homme.tex

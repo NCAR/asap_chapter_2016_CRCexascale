@@ -10,8 +10,7 @@
 % these. Some algorithms can be dealing with linear access to very structured data, others rely on
 % random access to irregular data.
 
-
-\section{Scientific Methodology}\label{sec:method}
+\section{Scientific methodology}\label{sec:method}
 
 [{\color{red} John/Chris: }:This intro part may need expansion/clarification]
 
@@ -25,7 +24,7 @@ optimization efforts on the atmospheric component, the Community Atmosphere Mode
 
 
 
-\subsection{Performance analysis}
+\subsection{Performance analysis}\label{sec:perf}
 
 [{\color{red}Describe how we first profile code and look for issues.  Briefly describe tools used (extrae, vtune, PAPI timers) - make sure to cover all referred to later in text.  And what we are looking for.}]
 
@@ -34,6 +33,7 @@ optimization efforts on the atmospheric component, the Community Atmosphere Mode
    \item {Bob Walkup's simple library} [Kerr 1 paragraph]
    \item {Built-in timers} [Kerr 1/2 paragraph]
    \item {Extrae folding} [Kim 1 paragraph]
+ \item PAPI hardware counters \cite{papi}
  \end{itemize}
 }
 
@@ -62,8 +62,16 @@ Some optimizations are innovation - some are things the compiler should do (give
 \subsection{Software practices}
 
 We complete the description of our methodology with a brief discussion of the software and workflow practices for our kernel optimization work.
-{\color{red} Add material on general software practices like subversion, git testing etc..specific to our optimization work}
+{\color{red} Add a few sentences on general software practices like subversion, git testing etc..specific to our optimization work}
  
 
 Because CESM undergoes rapid evolution, implementation of optimization and parallelization changes in CAM needs to co-exist with other code modifications to CAM. Development for different architectures would require significant changes and produce multiple code versions which would be difficult to maintain. We have therefore chosen to develop a single unified version of CAM for the Intel x86 architecture.  All computations are performed with 64 Byte reals and 32 Byte integers.
 
+\subsection{Platforms}
+
+For the analysis of our optimization work,  we utilize several platforms.  Our primary machines are Yellowstone, a Haswell-based Infiniband Linux cluster installed at the NCAR Wyoming Supercomputing Center (NWSC), and Carl,  a Knights Landing-based test platform deployed at the National Energy Research Supercomputing Center (NERSC).  
+We also provide timing information for several kernels on the HPCFL machine, a 4-socket Haswell-based system in NCAR's HPC Futures Laboratory.  The specific configuration of each platform is provide in Table \ref{tbl:platforms}.  On these platforms we use the Intel 17.0.0.042 compiler suite the Intel 5.1.3.210 MPI libraries.  We use the compiler flag "-O3 -fp-model fast -qno-opt-dynamic-align" for all runs along with the correct architecture flag.  
+
+{\color{red} Do we need info about the computational platforms used for the Post-processing results?}  
+
+\input platforms2.tex

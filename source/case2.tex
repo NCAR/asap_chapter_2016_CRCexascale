@@ -1,6 +1,6 @@
 \section{Case study: physics calculations}\label{sec:phys}
 
-While this case study is of much smaler scale that that in Section \ref{sec:case1}, it is important nonetheless and is representative of on-going efforts ti accelerate the physics modules of CAM.
+While this case study is of a much smaler scale that that in Section \ref{sec:case1}, it is important nonetheless and is representative of on-going efforts to accelerate the physics modules of CAM.
 
 
 [{\color{red} Clean this up and tie to big picture}]
@@ -24,4 +24,6 @@ The optimized radiation code, using intel 15.0.3 compiler and MKL 11.2.3, was fo
 
 The optimizations performed on these modules collectively reduced the cost of CAM by approximately 4.7\%. Estimating NCAR’s Yellowstone core-hour budget for CMIP6’s baseline experiments to be 600 MCPU-hrs, and that CAM itself represents about half of that cost, then these optimizations save roughly 14 MCPU-hrs in CMIP6 costs alone. 
 
-{\color{red} [Need to add material on implicit chemistry solver, Mickelson 1 paragraph]}
+{\color{red} [I'd beef this section up by putting the speedups in a table]}
+
+{\color{red} [Consider mentioning that future work is targeting the implicit chem solver]}

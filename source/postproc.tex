@@ -1,8 +1,12 @@
-\section{Accelerating data analytics }\label{sec:postproc}
+\section{Case study: data analytics }\label{sec:postproc}
 
-With the preparations for exascale computing, simulations with both higher resolution and frequency will be achievable, and the data production rates from these simulations will grow proportionally with the compute power of the machines.  The post-processing and analysis of these large datasets will require parallel technologies, and the previously existing technologies are mostly serial.  
+{\color{red} [I tried to tighten the intro material in this section and  refer to paper - but  more can be done to make it shouldd like a case study - and also can we include results in a table]}
 
-While parallel technologies exist, their use would significant require changes to the post-processing workflow that currently exists.  We choose to take an approach that introduces the fewest changes to the workflow with which scientists are already familiar, namely parallelizing individual steps in the workflow by swapping out the serial scripts with parallel alternatives.  This approach will require less user re-education and should improve the adoption rate of the newly developed and adopted technologies.  This should also lead to fewer problems encountered during and after deployment of the new technologies. Note that preliminary efforts for our new approach are detailed further in \cite{paul20215}.
+Our last case study pertains to the post-processing and analysis of the large datasets that will result from 
+the higher resolution and frequency that will be achievable at exascale.
+Data production rates from climate simulations are expected to grow proportionally with the compute power of the machines, and the previously existing technologies for post-processing and analysis are mostly serial.  
+%While parallel technologies exist, their use would significant require changes to the post-processing workflow that currently exists.  
+We choose to take an approach that introduces the fewest changes to the workflow with which scientists are already familiar, namely parallelizing individual steps in the workflow by swapping out the serial scripts with parallel alternatives.  This approach will require less user re-education and should improve the adoption rate of the newly developed and adopted technologies.  This should also lead to fewer problems encountered during and after deployment of the new technologies. Note that preliminary efforts for our new approach are detailed further in \cite{paul2015}.
 
 We have chosen develop our new tools with parallel Python, using \mpipy\ for parallelism.  Python is excellent for rapid development, reducing the time to deployment.  It also allows us to develop tools with a very small code-base, making it easier to maintain.  Python seamlessly integrates into the existing script-driven CESM workflow, and is cross-platform, reducing the need to address build issues on multiple exascale platforms.
 
