@@ -1,14 +1,38 @@
-\section{Programming Approach}\label{sec:program}
 
-The HOMME dynamical core is written in FORTRAN 90 and utilizes a hybrid (MPI-OpenMP) programming model.  Each side of the cubed-sphere computational grid, which is used by HOMME, is tiled with $NE \times NE$ spectral elements, resulting in a total number of spectral elements of $nelem = 6 \times NE \times NE$.  The spectral elements are statically partitioning during initialization across either MPI tasks or OpenMP threads.  Historically, while it was technically possible to scale HOMME to core counts equal to the number of spectral elements {\em nelem} it was, in practice, cost prohibitive.  Recent advances in the performance and scalability of the HOMME dynamical core has reduce its overall cost and has made it feasible to significantly increase the core count in which it can be run in production.  
+\section{Case study: dynamical core}\label{sec:case1}
+
+Our first case study focuses on CAM's spectral element dynamical core, known as HOMME (High-Order Method Modeling Environment) /cite{dennis:2012}, which is the default dynamical core for CAM for very high $1/4^\circ$ resolution simulations.  We focus on HOMME
+because the dynamical core can consume 30-88\% of the total cost of the CAM and is particularly influential in the overall scalability of CAM and,  therefore, CESM (e.g., {\color{red}CITATION}).  We first provide more information on the HOMME dynamical core and then detail several modifications aimed at exascale.
+
+\subsection{Algorithm details}
+
+HOMME uses a cubed-sphere topology where each face of the cube is projected onto a sphere to generate a global computational grid.  HOMME uses a spectral element method to discretize in the horizontal and a finite difference approximation \cite{simmons:1981} in the vertical.  A continuous Galerkin finite-element method \cite{taylor:1997} is used for the spectral element method. The integrals used in the Galerkin formulation are computed from a Gauss-Lobatto quadrature rule within each element.  HOMME decomposes each time-step into components and the equation, for a compressible fluid with hydrostatic and a shallow water approximations, can be written in terms of a vector $U$ containing the prognostic state variables (velocity, temperature, and surface pressure) as: $dU/dt = F + D + A + T + R$, where $F$ represents the forcing from physics, $D$ the dissipation, $A$ the dynamics from the primitive equations, $T$ the tracer advection, and $R$ the vertical remapping of the mass and momentum variables. A diagram of the overall computational flow of the HOMME algorithm is provided in Figure \ref{fig:homme-alg}.
+
+HOMME solves these equations in a time-split fully-explicit form. For time-steps involving the forcing ($F$) and dissipation ($D$) terms, a forward Euler time- scheme is used. The dynamics ($A$) and tracer advection ($T$) are computed using an N-stage Runge-Kutta time-scheme. The dynamics ($A$) computes the primitive equations prognostic variables. The tracer advection ($T$), is based on a finite-volume algorithm and advances the specific humidity, liquid water, ice variables, and additional tracer constituents. For advection, a vertical Lagrangian approach used \cite{lin:2004} where the horizontal advection on Lagrangian vertical levels is followed by remapping (R) the mass and momentum variables back to the reference vertical levels at the end of the time-step.
+
+\begin{figure}[tbp]
+ \begin{center}
+\includegraphics[width=12.0cm]{figures/HOMME-v01.pdf}
+\end{center}
+\caption{The computational phases within HOMME - {\color{red} how does this represent the flow and the new modifications?}.}
+\label{fig:homme-alg}
+\end{figure}
+
+As with the rest of CESM, the HOMME dynamical core is written in FORTRAN 90 and utilizes a hybrid (MPI-OpenMP) programming model.  Each side of the cubed-sphere computational grid is tiled with $NE \times NE$ spectral elements, resulting in a total number of spectral elements of $nelem = 6 \times NE \times NE$.  The spectral elements are statically partitioning during initialization across either MPI tasks or OpenMP threads.  The performance of HOMME is strongly influenced by the number of spectral elements allocated to each hardware core.  The total number of spectral elements for a particular cubed-sphere grid is calculated by the formula $nelem= 6 NE^2$, where {\em nelem} is the total number of elements.  For reference, the 1/4 degree simulation in \cite{small2014}, corresponding to $NE=120$ or $nelem=86,600$), used a total of 21,600 hardware cores which resulted in the assignment of 4 elements per core.  Note that historically, while it was technically possible to scale HOMME to core counts equal to the number of spectral elements {\em nelem} it was, in practice, cost prohibitive.
+
+%Recent advances in the performance and scalability of the HOMME dynamical core has reduce its overall cost and has made it feasible to significantly increase the core count in which it can be run in production.  
+
+\subsection{Revised parallelization strategy}
+
+[{\color{red} still needs some work.}]
+
+We begin with the extensive code changes needed to allow higher levels of parallelism.
+As mentioned in the previous subsection, the original HOMME parallelization scheme
+partitioned over elements at a  high level and loops at lower-levels.  This strategy fundamentally limited the number of cores (MPI tasks?)to be at most equal to the number of 
+spectral elements {\em nelem}. {\color{red} Suggest saying more on limits here so that the improvements below make more sense.}
 
 
-
-
-\subsection{Parallelization Strategy}
-
-The original scheme used parallelization over elements at a high-level and parallelization over loops at lower-levels. The revised scheme uses the same high-level parallelization over elements, however, the lower-loop level parallelization has been replaced with a high-level parallelization over the vertical level and tracers dimensions. The dimension chosen to parallelize is dependent on the region (dynamics, tracer advection, dissipation, or vertical remapping) of the code.
-
+The revised scheme uses the same high-level parallelization over elements, however, the lower-loop level parallelization has been replaced with a high-level parallelization over the vertical level and tracers dimensions. The dimension chosen to parallelize is dependent on the region (dynamics, tracer advection, dissipation, or vertical remapping) of the code.
 The revised scheme has several improvements over the original approach. These improvements include: a significant reduction in the number of threaded regions created; allows a greater number of threads to be assigned; allows replacement of MPI-Ranks with OpenMP threads which reduces the total MPI communication; provides greater flexibility in determining where the threads are assigned in the regions of the code; simplifies the scoping of variables in the parallel region as variables local to the routines, inside the parallel region, are private; minimizes wastage of thread resources as the parallelized over the vertical level and tracer blocks do not overlap so threads can be shared between these regions
 
 The revised parallelization structure of HOMME is shown in Figure \ref{fig:homme-alg}. Elements within the global domain are initially assigned with MPI-Ranks. Within the time loop, we maintain the original parallel structure over elements. The dynamics driver calls the dynamics, tracers, dissipation, and vertical remapping modules. These are parallelized over tracers or vertical levels; the blocking scheme chosen was dependent on the parallelism available in the module. In the dynamics, tracer and vertical remap modules, the code is blocked over tracers and in the dissipation module the code is blocked over the vertical levels. The only component module where we have maintained the original loop level-parallelism is in the 'compute\_and\_apply\_rhs' module as dependencies in the vertical prevent blocking over levels. 
@@ -33,9 +57,11 @@ Where the variable 'regtype' is name of the parallelism implemented in the modul
 
 The declaration of the number of MPI-Ranks and OpenMP threads for the elements, tracer, and vertical is performed at run-time. The design of HOMME with inner indices (np,np) are known at compile-time which allows the compiler to generate efficient vectorized code with the limitations described in Section {\color{red} ??}. The specification of the number of levels and tracers are made at run-time without impacting performance.
 
-
-
 \subsection{Single-core Optimizations}
+
+[{\color{red} better transition here}] A second aspect of HOMME that clearly needed optimizing
+based on performance analysis was ...
+
 
 The single-core performance optimizations implemented included improving: vectorization, data locality, minimize computations, and compile-time specifications for loop and array bounds \cite{henderson:2015}. Each of these techniques has contributed to the overall single-core performance improvements in the code. The overall results of these optimizations are discussed in Section \ref{sec:homme-results}.
 
@@ -46,6 +72,9 @@ The use of function statements throughout the code does impact performance. When
 Finally, the compiler reports, provide information on details of alignment of data for each vectorized loop. Where the data was not aligned, the compiler flag (-align arraybyte64) and the OpenMP aligned directive does force data alignment. However, the directive is cumbersome to create for complex loop as all unaligned variables need to be defined in the aligned list. This creates a maintainability issue; there are also issues when alignment is forced as it can lead to incorrect answers. For these reasons, we have avoided forcing data alignment in the code.
 
 \subsection{Data and Loop Structures}
+
+
+[{\color{red} better transition here}] Next, we looked at .... because ....
 
 The data structures are dynamically allocated and maintain a global index within each MPI-Rank.  Allocation of a generalized variable has the following ordering convention:
 
@@ -86,3 +115,21 @@ Prior to the blocked implementation, the loop bounds in the code, were written:
 \end{verbatim}
 
 A significant number of code changes were needed to create the blocked implementation. However, no changes were needed for the element region type as this was already supported in the original dynamical driver. The memory allocation for the variables remained unchanged. Changes were made to the halo-update communication routines so they were thread safe within the blocked levels, and tracer regions.
+
+
+\subsection{Other modifications}
+
+Clearly HOMME has received much of our attention and many modifications have been implemented to improve its performance for exascale. Here we note that in addition to those improvements detailed in the subsequent three subsections, additional modifications contribute to the improved performance shown in Section [BLAH].  For brevity, we simply list
+the additional modifications here:
+
+{\color{red} Fix bullets so that they are two or three sentences long - so slightly more info for reader. Remove any already discussed above.}
+\begin{itemize}
+   \item Threading memory copy in boundary exchange [PARALLEL]
+   \item Restructured data-structures for vectorization [SERIAL]
+   \item Rewrote message passing library/specialized communication operators [PARALLEL]
+   \item Rearranged calculations in euler\_step for cache reuse [SERIAL]
+   \item Reduced number of divides [SERIAL]
+   \item Restructured and aligned for better vectorization [SERIAL]
+   \item Rewrote and optimized limiter [SERIAL]
+   \item Redesigned the OpenMP threading [PARALLEL]
+\end{itemize}

@@ -13,20 +13,26 @@
 
 \section{Scientific Methodology}\label{sec:method}
 
-[{\color{red} John/Chris: }:This may need expansion/clarification]
+[{\color{red} John/Chris: }:This intro part may need expansion/clarification]
 
 While adapting the CESM code base to exploit massive fine-grained parallelism is necessary, this task is non-trivial at best; a complete re-write of a large, complex, and actively developed code like CESM is simply not possible with the resources at hand.  Therefore, we take an incremental approach toward preparing CESM for exascale. We focus on costly code kernels, re-working each to better utilize current and future computing capabilities.   
 
 Our methodology, which we detail in subsequent subsections, can be summarized as follows.  We first profile the CESM code and look for expensive kernels whose improvement would impact the overall runtime.  We then extract the kernel in question to more easily experiment with optimizations. Next we apply both generic and specialized optimizations. Finally the improved kernel is incorporated back into the CESM code base, and we verify that the resulting simulation output has not had a climate-changing impact.  We note that some optimizations have a significant impact in terms of speedup, while other modifications pale in comparison. We incorporate optimizations at both ends of the spectrum as the computing resources required to run climate simulations are so significant that even a seemingly minor improvement (e.g., one or two percent) can translate into non-trivially lower computing costs.
 
+While all component models in CESM must be prepared for exascale, we focus our initial 
+optimization efforts on the atmospheric component, the Community Atmosphere Model (CAM), which typically consumes greater then 50\% of the total cost of a CESM simulation [{\color{red} citation}].  CAM comprises a large number of different code modules that are typically  categorized as either dynamics and a physics modules.  The dynamics modules, or dynamical core, solve a set of partial differential equations which describe the fluid flow of the atmosphere, whereas the physics modules calculate all other properties.  
+
+
+
+
 \subsection{Performance analysis}
 
-[Describe how we first profile code and look for issues.  Briefly describe tools used (extrae, vtune) - maybe an example plot? And what we are looking for.]
+[{\color{red}Describe how we first profile code and look for issues.  Briefly describe tools used (extrae, vtune, PAPI timers) - make sure to cover all referred to later in text.  And what we are looking for.}]
 
 {\color{red}
  \begin{itemize}
    \item {Bob Walkup's simple library} [Kerr 1 paragraph]
-   \item {Bult-in timers} [Kerr 1/2 paragraph]
+   \item {Built-in timers} [Kerr 1/2 paragraph]
    \item {Extrae folding} [Kim 1 paragraph]
  \end{itemize}
 }
@@ -51,3 +57,13 @@ Some optimizations are innovation - some are things the compiler should do (give
 [ {\color{red} Allison :} make shorter]
 
 \input pycect.tex
+
+
+\subsection{Software practices}
+
+We complete the description of our methodology with a brief discussion of the software and workflow practices for our kernel optimization work.
+{\color{red} Add material on general software practices like subversion, git testing etc..specific to our optimization work}
+ 
+
+Because CESM undergoes rapid evolution, implementation of optimization and parallelization changes in CAM needs to co-exist with other code modifications to CAM. Development for different architectures would require significant changes and produce multiple code versions which would be difficult to maintain. We have therefore chosen to develop a single unified version of CAM for the Intel x86 architecture.  All computations are performed with 64 Byte reals and 32 Byte integers.
+

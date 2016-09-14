@@ -13,8 +13,15 @@ CESM consists of multiple geophysical component models of the atmosphere, ocean,
 
 [High-res in climate is different than in weather (example! Henderson paper?)]
 
+The HOMME dynamical core is written in FORTRAN 90 and utilizes a hybrid (MPI-OpenMP) programming model. 
 
  High resolutions (i.e., less than 1\degree)  also improve small and large-scale interactions and can reduce bias in some large-scale features \cite{small2014}.  A recent high-resolution CESM simulation at NCAR by Small et al. \cite{small2014} completed one hundred years of ‘‘present-day’’ simulation, with the atmospheric component at 0.25\degree grid spacing and ocean component at 0.1\degree, which was the longest run to date with CESM with 0.25\degree atmosphere.  This computationally expensive simulation consumed nearly 45 million CPU hours on NCAR's Yellowstone computing system, with a throughput of two simulated model years per day \cite{small2014}. Certainly a single simulation of multiple centuries or an ensemble of many simulations at this resolution is well-beyond the computing capacity available to most climate scientists.  High \textit{temporal} resolution simulations are undoubtedly critical to studying long term climate trends and paleoclimate (past climate states), but also to large ensemble climate simulation studies, such as the recent CESM-Large Ensemble (LE) Project for studying internal climate variability \citep{kay2015}.  The CESM-LE Project currently includes a 40-member ensemble of 180-year fully-coupled CESM climate simulations, in addition to several additional multi-century control simulations.  These simulations were all run at approximately 1\degree horizontal resolution in all components, and the first 30 members required 17 million CPU hours on NCAR's Yellowstone machine.  Computing such a large ensemble at a higher resolution (e.g., 0.25\degree) would be quite computationally expensive.
+
+
+ Even $1/4^\circ$ degree resolution are effectively limited to approximately 10-20K cores due to simulation costs and scalability limitations.  
+
+
+While the stand-alone spectral element (SE) dynamical core code [{\color{red} is this right?}]has demonstrated scaling to approximately 300K hardware cores \cite{came} for ultra-high $1/8^\circ$ degree resolution, simulating the fully-coupled climate at such high resolutions is still fundamentally infeasible due to the extreme cost of these simulations a very large core counts. 
 
 
 \subsection{Exascale challenges and expectations}
