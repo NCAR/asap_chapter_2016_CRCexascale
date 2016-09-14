@@ -1,0 +1,25 @@
+
+\section{Background}\label{sec:back}
+
+{\color{red} Allison:} [Write brief transition to this section.]
+
+\subsection{CESM}
+
+{\color{red} Allison:} [To do: re-write and check for description of code (grids, resolutions) and where we are now with costs and performance and related optimization work? The expense and how a one percent improvement is still a big deal.
+Fortran]
+
+
+CESM consists of multiple geophysical component models of the atmosphere, ocean, land, sea ice, land ice, and rivers.  These components can all run on different grid resolutions with different time steps, exchanging boundary data with each other (via MPI) through a central coupler.  Because CESM supports a variety of spatial resolutions and time-scales, simulations can be run on both state-of-the-art supercomputers as well as on an individual scientist's laptop.  Both the myriad of model configurations available to the user and the sheer number of physical processes represented contribute to the size and complexity of the CESM code.  Note that periodic releases of CESM to the community ensure that new science developments are accessible by all, and CESM's open-source availability encourages collaboration in the climate science community.
+
+[High-res in climate is different than in weather (example! Henderson paper?)]
+
+
+ High resolutions (i.e., less than 1\degree)  also improve small and large-scale interactions and can reduce bias in some large-scale features \cite{small2014}.  A recent high-resolution CESM simulation at NCAR by Small et al. \cite{small2014} completed one hundred years of ‘‘present-day’’ simulation, with the atmospheric component at 0.25\degree grid spacing and ocean component at 0.1\degree, which was the longest run to date with CESM with 0.25\degree atmosphere.  This computationally expensive simulation consumed nearly 45 million CPU hours on NCAR's Yellowstone computing system, with a throughput of two simulated model years per day \cite{small2014}. Certainly a single simulation of multiple centuries or an ensemble of many simulations at this resolution is well-beyond the computing capacity available to most climate scientists.  High \textit{temporal} resolution simulations are undoubtedly critical to studying long term climate trends and paleoclimate (past climate states), but also to large ensemble climate simulation studies, such as the recent CESM-Large Ensemble (LE) Project for studying internal climate variability \citep{kay2015}.  The CESM-LE Project currently includes a 40-member ensemble of 180-year fully-coupled CESM climate simulations, in addition to several additional multi-century control simulations.  These simulations were all run at approximately 1\degree horizontal resolution in all components, and the first 30 members required 17 million CPU hours on NCAR's Yellowstone machine.  Computing such a large ensemble at a higher resolution (e.g., 0.25\degree) would be quite computationally expensive.
+
+
+\subsection{Exascale challenges and expectations}
+[{\color{red} Chris:} - check this subsection - modify/expand ?]
+
+We expect the climate science trajectory to follow its current path forward, meaning that higher computing capability will translate into higher resolutions, the inclusion of more fine-grain (and computationally costly) physical processes, and improved interactions at component boundaries. The challenge for CESM to meet these goals is great, particularly in light of the changing computing technologies leading toward exascale.  While multi-core processors are now commonplace, unprecedented levels of parallelism are expected for exascale architectures, which may have hundreds of tasks per node and upwards of millions of tasks overall.  Further, the importance of vectorization has resurfaced, and tasks will likely have access to much less memory than current machines provide.
+
+Exascale computing will certainly enable finer (spatial and temporal) resolutions and long timescales that are desirable in terms of more accurate and realistic simulations, but storing the massive data sets resulting from such simulations will be challenging at best. Unfortunately, supercomputing storage capacities have not increased as rapidly as processor speeds over the last 25 years, and the cost of storing huge data volumes is becoming increasingly burdensome and unsustainable for many computing centers (e.g., \cite{kunkel2014}).  {\color{red} Allison:} Give numbers for volumes here or above with descriptions of examples.]  We note that data storage concerns have prompted recent investigations into utilizing more aggressive data compression for climate simulation data (e.g. \cite{baker2014}, \cite{baker2016-pepsi}, \cite{woodring11}, \cite{hubbe12}).  Furthermore, the high data production rates that will accompany exascale computing require a reexamination of the CESM post-processing and data analytics as well (e.g., \cite{paul2015}).  In particular, existing analysis tools are largely serial, and parallel technologies will be critical at exascale. We further discuss our preparation for post-processing of exascale data volumes in Section \ref{sec:postproc}.

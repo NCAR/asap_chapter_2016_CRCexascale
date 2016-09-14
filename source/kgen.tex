@@ -1,4 +1,4 @@
-\subsection{Automated Fortran kernel generation}\label{sec:kgen}
+%\subsection{Automated Fortran kernel generation}\label{sec:kgen}
 
 A significant challenge to optimizing CESM is based on the fact that it is a large and complex application that typically requires expert knowledge to build and execute. Furthermore, it is also resource intensive and requires more then an hour to build and run.  To address these challenges we utilize KGen a python tool that automatically extracts a kernel from large Fortran application \cite{kim2016,kgenrepo}.  This smaller kernel allows pieces of a much larger fortran application to be built and run outside the complexity of the main application.  The KGen generated kernel which is typically from 1K to 30K lines long may take minutes to compile and only seconds to execute, and is easily portable to different compute platforms.  
 
