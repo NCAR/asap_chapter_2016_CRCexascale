@@ -37,6 +37,7 @@ optimization efforts on the atmospheric component, the Community Atmosphere Mode
  \end{itemize}
 }
 
+Folding Analysis is one of performance analysis techniques developed at Barcelona Supercomputing Center(BSC) \cite{folding}. Using this technique, a detailed evolution of performance-related events can be obtained for an arbitrary block of software source code. The strength of this tool is two-folded. First, the fine-grain performance evolution collected using this tool helps to understand how the program runs on the target processor, which would be very difficult with coarse-grain performance event collection. Secondly, it is possible to map specific regions of the performance evolution to a set of source code lines. This feature is particularly important because it helps users to pick a small number of source code lines for optimization and also to decide types of optimization techniques to apply. To perform Folding analysis, user first needs to collect performance event samples using Extrae, which is another tool from BSC for instrumentation and sampling \cite{extrae}. Through interpolating the collected samples, Folding tool generates fine-grained evolution plots of collected performance events. For further investigation of the folding outputs, user can use Paraver, which is an offline trace analyzer from BSC \cite{paraver}.
 
 \subsection{Kernel extraction}
 
